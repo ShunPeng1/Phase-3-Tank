@@ -1,4 +1,5 @@
-import Bullet from './bullet';
+import Bullet from './Bullet';
+import TireTrack from './TireTrack';
 
 
 class Player extends Phaser.GameObjects.Image {
@@ -17,7 +18,7 @@ class Player extends Phaser.GameObjects.Image {
 
     // game objects
     private bullets: Phaser.GameObjects.Group;
-    
+    private tireTracks: TireTrack;
     private barrelContainer: Phaser.GameObjects.Container;
     private tankContainer: Phaser.GameObjects.Container;
 
@@ -105,8 +106,12 @@ class Player extends Phaser.GameObjects.Image {
         this.movementIndicator.setAlpha(0.8);
 
 
+        this.tireTracks = new TireTrack(this.scene, 0, 0, this, 80);
+        
         this.tankContainer = this.scene.add.container(this.x, this.y, [this.movementIndicator]);
         
+
+
         // physics
         this.scene.physics.world.enable(this);
     }
@@ -127,6 +132,7 @@ class Player extends Phaser.GameObjects.Image {
     destroy() {
         this.barrel.destroy();
         this.lifeBar.destroy();
+        this.tireTracks.destroy();
 
         this.scene.input.off('pointermove', this.handleBarrelRotation);
         this.scene.input.off('pointerdown', this.handleShooting);

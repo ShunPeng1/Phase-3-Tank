@@ -1,4 +1,5 @@
-import Bullet from './bullet';
+import Bullet from './Bullet';
+import TireTrack from './TireTrack';
 
 
 class Enemy extends Phaser.GameObjects.Image {
@@ -15,6 +16,7 @@ class Enemy extends Phaser.GameObjects.Image {
 
     // game objects
     private bullets: Phaser.GameObjects.Group;
+    private tireTracks: TireTrack;
 
     public getBarrel(): Phaser.GameObjects.Image {
         return this.barrel;
@@ -69,6 +71,9 @@ class Enemy extends Phaser.GameObjects.Image {
         yoyo: true
         });
 
+        this.tireTracks = new TireTrack(this.scene, 0, 0, this, 200, 1500);
+        
+        
         // physics
         this.scene.physics.world.enable(this);
     }
@@ -82,9 +87,16 @@ class Enemy extends Phaser.GameObjects.Image {
             this.handleShooting();
         } else {
             this.destroy();
-            this.barrel.destroy();
-            this.lifeBar.destroy();
         }
+    }
+
+    destroy(fromScene?: boolean): void {
+        
+        this.barrel.destroy();
+        this.lifeBar.destroy();
+        this.tireTracks.destroy();
+
+        super.destroy(fromScene);
     }
 
     private handleShooting(): void {
@@ -121,7 +133,7 @@ class Enemy extends Phaser.GameObjects.Image {
 
     public updateHealth(): void {
         if (this.health > 0) {
-            this.health -= 0.05;
+            this.health -= 0.15;
             this.redrawLifebar();
         } else {
             this.health = 0;
