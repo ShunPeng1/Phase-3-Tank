@@ -99,9 +99,10 @@ class Player extends Phaser.GameObjects.Image {
         // Moving indicator
         this.movementIndicator = this.scene.add.image(0, -50, 'lineArrow');
         this.movementIndicator.setOrigin(0, 0.5);
-        this.movementIndicator.setScale(0.025);
+        this.movementIndicator.setScale(0.03);
         this.movementIndicator.setDepth(0);
         this.movementIndicator.setRotation(-Math.PI / 2);
+        this.movementIndicator.setAlpha(0.8);
 
 
         this.tankContainer = this.scene.add.container(this.x, this.y, [this.movementIndicator]);
