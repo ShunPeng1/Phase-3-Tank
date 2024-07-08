@@ -8,7 +8,7 @@ class Player extends Phaser.GameObjects.Image {
     private health: number;
     private lastShoot: number;
     private speed: number;
-    private angularSpeed: number = 0.03;
+    private angularSpeed: number;
 
     // children
     private movementIndicator : Phaser.GameObjects.Image;
@@ -45,7 +45,8 @@ class Player extends Phaser.GameObjects.Image {
         // variables
         this.health = 1;
         this.lastShoot = 0;
-        this.speed = 400;
+        this.speed = 300;
+        this.angularSpeed = 0.03;
 
         // image
         this.setOrigin(0.5, 0.5);
@@ -98,7 +99,7 @@ class Player extends Phaser.GameObjects.Image {
         // Moving indicator
         this.movementIndicator = this.scene.add.image(0, -50, 'lineArrow');
         this.movementIndicator.setOrigin(0, 0.5);
-        this.movementIndicator.setScale(0.04);
+        this.movementIndicator.setScale(0.025);
         this.movementIndicator.setDepth(0);
         this.movementIndicator.setRotation(-Math.PI / 2);
 
