@@ -8,17 +8,22 @@ class Player extends Phaser.GameObjects.Image {
     private health: number;
     private lastShoot: number;
     private speed: number;
+    private angularSpeed: number = 0.03;
 
     // children
+    private movementIndicator : Phaser.GameObjects.Image;
     private barrel: Phaser.GameObjects.Image;
-    private barrelContainer: Phaser.GameObjects.Container;
     private lifeBar: Phaser.GameObjects.Graphics;
 
     // game objects
     private bullets: Phaser.GameObjects.Group;
+    
+    private barrelContainer: Phaser.GameObjects.Container;
+    private tankContainer: Phaser.GameObjects.Container;
 
     // input
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+    private wasdKeys: { up: Phaser.Input.Keyboard.Key, down: Phaser.Input.Keyboard.Key, left: Phaser.Input.Keyboard.Key, right: Phaser.Input.Keyboard.Key };
     private rotateKeyLeft: Phaser.Input.Keyboard.Key;
     private rotateKeyRight: Phaser.Input.Keyboard.Key;
     private shootingKey: Phaser.Input.Keyboard.Key;
@@ -33,6 +38,8 @@ class Player extends Phaser.GameObjects.Image {
         this.initImage();
         this.scene.add.existing(this);
     }
+
+    
 
     private initImage() {
         // variables
@@ -67,17 +74,37 @@ class Player extends Phaser.GameObjects.Image {
         });
 
         // input
+        // this.cursors = this.scene.input.keyboard!.createCursorKeys();
+        // this.rotateKeyLeft = this.scene.input.keyboard!.addKey(
+        //     Phaser.Input.Keyboard.KeyCodes.A
+        // );
+        // this.rotateKeyRight = this.scene.input.keyboard!.addKey(
+        //     Phaser.Input.Keyboard.KeyCodes.D
+        // );
+        // this.shootingKey = this.scene.input.keyboard!.addKey(
+        //     Phaser.Input.Keyboard.KeyCodes.SPACE
+        // );
         this.cursors = this.scene.input.keyboard!.createCursorKeys();
-        this.rotateKeyLeft = this.scene.input.keyboard!.addKey(
-            Phaser.Input.Keyboard.KeyCodes.A
-        );
-        this.rotateKeyRight = this.scene.input.keyboard!.addKey(
-            Phaser.Input.Keyboard.KeyCodes.D
-        );
-        this.shootingKey = this.scene.input.keyboard!.addKey(
-            Phaser.Input.Keyboard.KeyCodes.SPACE
-        );
+        this.wasdKeys = {
+            up: this.scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+            down: this.scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            left: this.scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            right: this.scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+        };
 
+        this.scene.input.on('pointermove', this.handleBarrelRotation, this);
+        this.scene.input.on('pointerdown', this.handleShooting, this);
+
+        // Moving indicator
+        this.movementIndicator = this.scene.add.image(0, -50, 'lineArrow');
+        this.movementIndicator.setOrigin(0, 0.5);
+        this.movementIndicator.setScale(0.04);
+        this.movementIndicator.setDepth(0);
+        this.movementIndicator.setRotation(-Math.PI / 2);
+
+
+        this.tankContainer = this.scene.add.container(this.x, this.y, [this.movementIndicator]);
+        
         // physics
         this.scene.physics.world.enable(this);
     }
@@ -89,50 +116,67 @@ class Player extends Phaser.GameObjects.Image {
             this.lifeBar.x = this.x;
             this.lifeBar.y = this.y;
             this.handleInput();
-            this.handleShooting();
+            //this.handleShooting();
         } else {
             this.destroy();
-            this.barrel.destroy();
-            this.lifeBar.destroy();
         }
+    }
+
+    destroy() {
+        this.barrel.destroy();
+        this.lifeBar.destroy();
+
+        this.scene.input.off('pointermove', this.handleBarrelRotation);
+        this.scene.input.off('pointerdown', this.handleShooting);
+    
+        // Call the parent destroy method or additional cleanup if necessary
+        super.destroy();
     }
 
     private handleInput() {
         // move tank forward
         // small corrections with (- MATH.PI / 2) to align tank correctly
-        if (this.cursors.up.isDown) {
+        if (this.cursors.up.isDown || this.wasdKeys.up.isDown) {
             this.scene.physics.velocityFromRotation(
             this.rotation - Math.PI / 2,
             this.speed,
             this.body.velocity
-        );
-        } else if (this.cursors.down.isDown) {
+            );
+        } else if (this.cursors.down.isDown || this.wasdKeys.down.isDown) {
             this.scene.physics.velocityFromRotation(
             this.rotation - Math.PI / 2,
             -this.speed,
             this.body.velocity
-        );
+            );  
         } else {
             this.body.setVelocity(0, 0);
         }
 
         // rotate tank
-        if (this.cursors.left.isDown) {
-            this.rotation -= 0.02;
-        } else if (this.cursors.right.isDown) {
-            this.rotation += 0.02;
+        if (this.cursors.left.isDown || this.wasdKeys.left.isDown) {
+            this.rotation -= this.angularSpeed;
+        } else if (this.cursors.right.isDown || this.wasdKeys.right.isDown) {
+            this.rotation += this.angularSpeed;
         }
 
-        // rotate barrel
-        if (this.rotateKeyLeft.isDown) {
-            this.barrel.rotation -= 0.05;
-        } else if (this.rotateKeyRight.isDown) {
-            this.barrel.rotation += 0.05;
-        }
+
+        // Tank Container update
+        this.tankContainer.setPosition(this.x, this.y);
+        this.tankContainer.setRotation(this.rotation);
     }
 
-    private handleShooting(): void {
-        if (this.shootingKey.isDown && this.scene.time.now > this.lastShoot) {
+    private handleBarrelRotation = (pointer: Phaser.Input.Pointer) => {
+        const worldPoint = pointer.positionToCamera(this.scene.cameras.main) as Phaser.Math.Vector2;
+        this.barrel.rotation = Phaser.Math.Angle.Between(this.barrel.x, this.barrel.y, worldPoint.x, worldPoint.y) + Math.PI / 2;
+    };
+    
+    
+    private handleShooting(pointer: Phaser.Input.Pointer): void {
+        if (!pointer.leftButtonDown()){
+            return;
+        }
+        
+        if (this.scene.time.now > this.lastShoot) {
         this.scene.cameras.main.shake(20, 0.005);
         this.scene.tweens.add({
             targets: this,
@@ -180,7 +224,7 @@ class Player extends Phaser.GameObjects.Image {
 
     public updateHealth(): void {
         if (this.health > 0) {
-            this.health -= 0.05;
+            this.health -= 0.025;
             this.redrawLifebar();
         } else {
             this.health = 0;

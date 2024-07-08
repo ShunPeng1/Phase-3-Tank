@@ -44,6 +44,11 @@
       },
       {
         "type": "image",
+        "key": "lineArrow",
+        "url": "./assets/sprites/line-arrow.png"
+      },
+      {
+        "type": "image",
         "key": "tiles",
         "url": "./assets/tiles/tiles.png"
       },
