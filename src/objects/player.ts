@@ -200,13 +200,16 @@ class Player extends Phaser.GameObjects.Image {
             paused: false
         });
 
+        let shootPositionX = this.barrel.x + 58 * Math.sin(this.barrel.rotation);
+        let shootPositionY = this.barrel.y - 58 * Math.cos(this.barrel.rotation);
+        
         if (this.bullets.getLength() < 10) {
             this.bullets.add(
             new Bullet({
                 scene: this.scene,
                 rotation: this.barrel.rotation,
-                x: this.barrel.x,
-                y: this.barrel.y,
+                x: shootPositionX,
+                y: shootPositionY,
                 texture: 'bulletBlue'
             })
             );

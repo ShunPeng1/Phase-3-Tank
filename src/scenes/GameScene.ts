@@ -47,8 +47,10 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.layer);
         this.physics.add.collider(this.player, this.obstacles);
 
+        console.log(this.layer)
+
         // collider for bullets
-        this.physics.add.collider(
+        this.physics.add.overlap(
             this.player.getBullets(),
             this.layer,
             this.bulletHitLayer,
@@ -56,7 +58,7 @@ class GameScene extends Phaser.Scene {
             this
         );
         
-        this.physics.add.collider(
+        this.physics.add.overlap(
             this.player.getBullets(),
             this.obstacles,
             this.bulletHitObstacles,
@@ -82,13 +84,13 @@ class GameScene extends Phaser.Scene {
                 undefined
             );
         
-            this.physics.add.collider(
+            this.physics.add.overlap(
                 enemy.getBullets(),
                 this.obstacles,
                 this.bulletHitObstacles,
                 undefined
             );
-            this.physics.add.collider(
+            this.physics.add.overlap(
                 enemy.getBullets(),
                 this.layer,
                 this.bulletHitLayer,
@@ -154,9 +156,13 @@ class GameScene extends Phaser.Scene {
         });
     }
 
-    private bulletHitLayer(bullet: Bullet | Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void {
+    private bulletHitLayer(bullet: Bullet | Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody, tile :  | Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void {
         if (bullet instanceof Bullet) {
-            bullet.destroy();
+            if (tile instanceof Phaser.Tilemaps.Tile) {
+                if (tile.properties.collide) {
+                    bullet.destroy();
+                }
+            }
         }
     }
 
