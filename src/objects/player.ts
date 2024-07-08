@@ -11,6 +11,7 @@ class Player extends Phaser.GameObjects.Image {
 
     // children
     private barrel: Phaser.GameObjects.Image;
+    private barrelContainer: Phaser.GameObjects.Container;
     private lifeBar: Phaser.GameObjects.Graphics;
 
     // game objects
@@ -37,17 +38,22 @@ class Player extends Phaser.GameObjects.Image {
         // variables
         this.health = 1;
         this.lastShoot = 0;
-        this.speed = 100;
+        this.speed = 400;
 
         // image
         this.setOrigin(0.5, 0.5);
         this.setDepth(0);
         this.angle = 180;
+    
 
         this.barrel = this.scene.add.image(this.x, this.y, 'barrelBlue');
         this.barrel.setOrigin(0.5, 1);
         this.barrel.setDepth(1);
         this.barrel.angle = 180;
+
+        //this.barrelContainer = this.scene.add.container(this.x, this.y, [this.barrel]);
+        //this.barrelContainer.setDepth(1);
+        
 
         this.lifeBar = this.scene.add.graphics();
         this.redrawLifebar();

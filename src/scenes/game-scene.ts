@@ -65,6 +65,8 @@ class GameScene extends Phaser.Scene {
         );
         
         this.enemies.getChildren().forEach((enemyGameObject: Phaser.GameObjects.GameObject) => {
+            let enemy = enemyGameObject as Enemy;
+            
             this.physics.add.overlap(
                 this.player.getBullets(),
                 enemyGameObject,
@@ -73,7 +75,6 @@ class GameScene extends Phaser.Scene {
                 this
             );
 
-            let enemy = enemyGameObject as Enemy;
             this.physics.add.overlap(
                 enemy.getBullets(),
                 this.player,
@@ -102,19 +103,19 @@ class GameScene extends Phaser.Scene {
         this.player.update();
 
         this.enemies.getChildren().forEach((enemyGameObject: GameObjects.GameObject) => {
-        let enemy = enemyGameObject as Enemy;
-        enemy.update();
-        if (this.player.active && enemy.active) {
-            var angle = Phaser.Math.Angle.Between(
-            enemy.body.x,
-            enemy.body.y,
-            this.player.body.x,
-            this.player.body.y
-            );
+            let enemy = enemyGameObject as Enemy;
+            enemy.update();
+            if (this.player.active && enemy.active) {
+                var angle = Phaser.Math.Angle.Between(
+                enemy.body.x,
+                enemy.body.y,
+                this.player.body.x,
+                this.player.body.y
+                );
 
-            enemy.getBarrel().angle =
-            (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
-        }
+                enemy.getBarrel().angle =
+                (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
+            }
         }, this);
     }
 
@@ -160,7 +161,9 @@ class GameScene extends Phaser.Scene {
     }
 
     private bulletHitObstacles(bullet: Bullet |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody, obstacle: Obstacle |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void {
-        bullet.destroy();
+        if (bullet instanceof Bullet) {
+            bullet.destroy();
+        }
     }
 
     private enemyBulletHitPlayer(bullet: Bullet |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody, player: Player |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void {
