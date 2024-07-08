@@ -1,8 +1,8 @@
 import { GameObjects } from "phaser";
-import Bullet from "../objects/bullet";
-import Enemy from "../objects/enemy";
-import Obstacle from "../objects/obstacles/obstacle";
-import Player from "../objects/player";
+import Player from "../objects/Player";
+import Enemy from "../objects/Enemy";
+import Obstacle from "../objects/obstacles/Obstacle";
+import Bullet from "../objects/Bullet";
 
 
 
