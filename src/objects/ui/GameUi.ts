@@ -25,7 +25,7 @@ class GameUi extends UiContainer {
 
         
         pauseButton.on(UiImageButton.BUTTON_UP_EVENT, this.showPauseUi);
-        TweenUtilities.applyAlphaTweens(pauseButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 1, 0.7, 200);
+        TweenUtilities.applyTintTweens(pauseButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         
 
 
@@ -37,8 +37,8 @@ class GameUi extends UiContainer {
 
 
     private showPauseUi() {
-        this.pauseUi.setVisible(true);
-        this.playUi.setVisible(false);
+        //this.pauseUi.setVisible(true);
+        //this.playUi.setVisible(false);
     }
 
     private showSettingUi() {

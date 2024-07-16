@@ -149,6 +149,78 @@ class TweenUtilities {
         });
     }
 
+    public static applyTintTweens(gameObject: Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Tint, eventOnString: string | string[], eventOffString: string | string[], startTint: number = 0xffffff, endTint: number = 0x000000, duration: number = 100): void {
+        let isTintChanged = false;
+        let tintToTween: Phaser.Tweens.Tween | null = null;
+        let tintBackTween: Phaser.Tweens.Tween | null = null;
+    
+        const applyTint = () => {
+            if (tintBackTween) {
+                tintBackTween.complete();
+            }
+            isTintChanged = true;
+    
+            tintToTween = gameObject.scene.tweens.add({
+                targets: gameObject,
+                tint: { from: startTint, to: endTint },
+                duration: duration,
+                ease: 'Linear',
+                onUpdate: (tween) => {
+                    let color = Phaser.Display.Color.Interpolate.ColorWithColor(Phaser.Display.Color.ValueToColor(startTint), Phaser.Display.Color.ValueToColor(endTint), 100, tintToTween!.progress * 100);
+                    gameObject.setTint(color.r<<16 | color.g<<8 | color.b);
+                },
+                onComplete: () => {
+                    gameObject.setTint(endTint);
+                    tintToTween = null;
+                },
+                onStop: () => {
+                    gameObject.setTint(endTint);
+                    tintToTween = null;
+                }
+            });
+        };
+    
+        const removeTint = () => {
+            if (!isTintChanged) return;
+    
+            if (tintToTween) {
+                tintToTween.stop();
+            }
+    
+            isTintChanged = false;
+    
+            tintBackTween = gameObject.scene.tweens.add({
+                targets: gameObject,
+                tint: { from: endTint, to: startTint },
+                duration: duration,
+                ease: 'Linear',
+                onUpdate: () => {
+                    let color = Phaser.Display.Color.Interpolate.ColorWithColor(Phaser.Display.Color.ValueToColor(endTint), Phaser.Display.Color.ValueToColor(startTint), 100, tintBackTween!.progress * 100);
+                    gameObject.setTint(color.r<<16 | color.g<<8 | color.b);
+                },
+                onComplete: () => {
+                    gameObject.setTint(startTint);
+                    tintBackTween = null;
+                }
+            });
+        };
+    
+        if (typeof eventOnString === 'string') {
+            eventOnString = [eventOnString];
+        }
+    
+        eventOnString.forEach((eventString) => {
+            gameObject.on(eventString, applyTint);
+        });
+    
+        if (typeof eventOffString === 'string') {
+            eventOffString = [eventOffString];
+        }
+    
+        eventOffString.forEach(eventString => {
+            gameObject.on(eventString, removeTint);
+        });
+    }
 
     public static applyAlphaTweens(gameObject: Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Alpha, eventOnString: string | string[], eventOffString: string | string[], startAlpha: number = 1, endAlpha: number = 0, duration: number = 100): void {
         let isAlphaChanged = false;
@@ -156,8 +228,8 @@ class TweenUtilities {
         let alphaBackTween: Phaser.Tweens.Tween | null = null;
 
         const applyAlpha = () => {
-            if (alphaToTween) {
-                alphaToTween.complete();
+            if (alphaBackTween) {
+                alphaBackTween.complete();
             }
             isAlphaChanged = true;
     
