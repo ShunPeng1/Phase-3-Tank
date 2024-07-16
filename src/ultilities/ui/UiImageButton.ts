@@ -35,7 +35,6 @@ class UiImageButton extends UiContainer implements IUiClickable, IUiHoverable, P
     }
 
     public setTint(topLeft?: number, topRight?: number, bottomLeft?: number, bottomRight?: number): this {
-        console.log(topLeft);
         this.image.setTint(topLeft, topRight, bottomLeft, bottomRight);
         return this;
     }
@@ -51,8 +50,7 @@ class UiImageButton extends UiContainer implements IUiClickable, IUiHoverable, P
             useHandCursor: true
         });
 
-        console.log(this.hitArea);
-
+       
         this.hitArea.on('pointerdown',this.enterPressDownState, this);
         this.hitArea.on('pointerup', this.enterPressUpState, this);
         this.hitArea.on('pointerover',this.enterHoverState, this);

@@ -2,7 +2,7 @@ import Bullet from './Bullet';
 import TireTrack from './TireTrack';
 
 
-class Player extends Phaser.GameObjects.Image {
+class Player extends Phaser.GameObjects.Image implements IPausable{
     body: Phaser.Physics.Arcade.Body;
 
     // variables
@@ -29,6 +29,9 @@ class Player extends Phaser.GameObjects.Image {
     private rotateKeyRight: Phaser.Input.Keyboard.Key;
     private shootingKey: Phaser.Input.Keyboard.Key;
 
+    // Pause related variables
+    private isPaused: boolean = false;
+
     public getBullets(): Phaser.GameObjects.Group {
         return this.bullets;
     }
@@ -40,6 +43,28 @@ class Player extends Phaser.GameObjects.Image {
         this.scene.add.existing(this);
     }
 
+    public pause(): void {
+        // Stop all movement
+        this.body.setVelocity(0, 0);
+    
+        // Disable input
+        this.scene.input.keyboard!.disableGlobalCapture();
+        this.scene.input.off('pointermove', this.handleBarrelRotation);
+        this.scene.input.off('pointerdown', this.handleShooting);
+    
+        // Optionally, pause any animations or timers specific to the Player
+        this.isPaused = true;
+    }
+    
+    public resume(): void {
+        // Re-enable input
+        this.scene.input.keyboard!.enableGlobalCapture();
+        this.scene.input.on('pointermove', this.handleBarrelRotation, this);
+        this.scene.input.on('pointerdown', this.handleShooting, this);
+    
+        // Optionally, resume any animations or timers specific to the Player
+        this.isPaused = false;
+    }
     
 
     private initImage() {
@@ -117,6 +142,10 @@ class Player extends Phaser.GameObjects.Image {
     }
 
     update(): void {
+        if (this.isPaused) {
+            return;
+        }
+
         if (this.active) {
             this.barrel.x = this.x;
             this.barrel.y = this.y;

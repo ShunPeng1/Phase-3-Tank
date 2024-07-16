@@ -8,10 +8,15 @@ class PauseGroup {
     }
 
     public setObjectFromScene(scene: Phaser.Scene): void {
-        const pausableObjects = scene.sys.updateList.getActive().filter(
-            obj => 'pause' in obj && typeof obj.pause === 'function'
+        const pausableObjectsInUpdateList = scene.sys.updateList.getActive().filter(
+            obj => 'pause' in obj && typeof obj.pause === 'function' && 'resume' in obj && typeof obj.resume === 'function'
         ) as unknown as IPausable[];
-        this.objects = pausableObjects;    
+
+        const pauseableObjectsInDisplayList = scene.sys.displayList.list.filter(
+            obj => 'pause' in obj && typeof obj.pause === 'function' && 'resume' in obj && typeof obj.resume === 'function'
+        ) as unknown as IPausable[];
+
+        this.objects =  [...pausableObjectsInUpdateList, ...pauseableObjectsInDisplayList];    
     }
 
     public pause(): void {
@@ -30,3 +35,5 @@ class PauseGroup {
 
 
 }
+
+export default PauseGroup;

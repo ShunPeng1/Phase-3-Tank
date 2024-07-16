@@ -2,7 +2,7 @@ import Bullet from './Bullet';
 import TireTrack from './TireTrack';
 
 
-class Enemy extends Phaser.GameObjects.Image {
+class Enemy extends Phaser.GameObjects.Image implements IPausable {
     body: Phaser.Physics.Arcade.Body;
 
     // variables
@@ -18,6 +18,14 @@ class Enemy extends Phaser.GameObjects.Image {
     private bullets: Phaser.GameObjects.Group;
     private tireTracks: TireTrack;
 
+
+    // Pause related variables
+    private originalVelocity: Phaser.Math.Vector2 = new Phaser.Math.Vector2(0, 0);
+    private isPaused: boolean = false;
+
+
+    private moveTween: Phaser.Tweens.Tween;
+
     public getBarrel(): Phaser.GameObjects.Image {
         return this.barrel;
     }
@@ -32,6 +40,33 @@ class Enemy extends Phaser.GameObjects.Image {
         this.initContainer();
         this.scene.add.existing(this);
     }
+
+    public pause() : void {
+        if (!this.isPaused) {
+            // Store the current velocity
+            this.originalVelocity.x = this.body.velocity.x;
+            this.originalVelocity.y = this.body.velocity.y;
+
+            // Set velocity to 0 to stop movement
+            this.body.setVelocity(0, 0);
+
+            this.moveTween.pause();
+
+            this.isPaused = true;
+        }
+    }
+
+    public resume() : void {
+        if (this.isPaused) {
+            // Set the velocity back to its original value to resume movement
+            this.body.setVelocity(this.originalVelocity.x, this.originalVelocity.y);
+
+            this.moveTween.resume();
+
+            this.isPaused = false;
+        }
+    }
+
 
     private initContainer() {
         // variables
@@ -58,7 +93,7 @@ class Enemy extends Phaser.GameObjects.Image {
         });
 
         // tweens
-        this.scene.tweens.add({
+        this.moveTween = this.scene.tweens.add({
         targets: this,
         props: { y: this.y - 200 },
         delay: 0,
@@ -79,6 +114,10 @@ class Enemy extends Phaser.GameObjects.Image {
     }
 
     update(): void {
+        if (this.isPaused) {
+            return;
+        }
+
         if (this.active) {
             this.barrel.x = this.x;
             this.barrel.y = this.y;
