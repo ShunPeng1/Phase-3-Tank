@@ -7,6 +7,10 @@ class UiImageButton extends UiContainer implements IUiClickable, IUiHoverable {
     public isClicked: boolean;
     public isHovered: boolean;
     
+    public static readonly BUTTON_DOWN_EVENT: string = 'buttondown';
+    public static readonly BUTTON_UP_EVENT: string = 'buttonup';
+    public static readonly HOVER_EVENT: string = 'hover';
+    public static readonly REST_EVENT: string = 'rest';
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string | Phaser.Textures.Texture, frame?: string | number | undefined) {
         super(scene, x, y);
@@ -20,23 +24,24 @@ class UiImageButton extends UiContainer implements IUiClickable, IUiHoverable {
         this.setInteractive();
     }
 
-    public setInteractive(hitArea?: Phaser.Types.Input.InputConfiguration | any, callback?: Phaser.Types.Input.HitAreaCallback, dropZone?: boolean): this {
-        //super.setInteractive(hitArea, callback, dropZone);
+    public setInteractive(): this {
+        const hitArea = new Phaser.Geom.Rectangle(0, 0, this.image.width, this.image.height);
+        const hitAreaCallback = Phaser.Geom.Rectangle.Contains;
+
+        this.on('pointerdown', this.enterPressDownState, this);
+        this.on('pointerup', this.enterPressUpState, this);
+        this.on('pointerover', this.enterHoverState, this);
+        this.on('pointerout', this.enterRestState, this);
         
-        this.image.setInteractive(hitArea, callback, dropZone);
-        this.image.on('pointerdown', this.enterPressDownState, this);
-        this.image.on('pointerup', this.enterPressUpState, this);
-        this.image.on('pointerover', this.enterHoverState, this);
-        this.image.on('pointerout', this.enterRestState, this);
-        
+        super.setInteractive(hitArea, hitAreaCallback);
         return this;
     }
 
     public disableInteractive(): this {
-        this.image.off('pointerdown', this.enterPressDownState, this);
-        this.image.off('pointerup', this.enterPressUpState, this);
-        this.image.off('pointerover', this.enterHoverState, this);
-        this.image.off('pointerout', this.enterRestState, this);
+        this.off('pointerdown', this.enterPressDownState, this);
+        this.off('pointerup', this.enterPressUpState, this);
+        this.off('pointerover', this.enterHoverState, this);
+        this.off('pointerout', this.enterRestState, this);
 
         super.disableInteractive();
         return this;
@@ -46,20 +51,20 @@ class UiImageButton extends UiContainer implements IUiClickable, IUiHoverable {
     public enterPressDownState(): void {
         this.isClicked = true;
 
-        this.image.emit('buttondown');
+        this.emit('buttondown');
     }
 
     public enterPressUpState(): void {
         if (!this.isClicked) return;
 
         this.isClicked = false;
-        this.image.emit('buttonup');
+        this.emit('buttonup');
     }
 
     public enterHoverState(): void {
         this.isHovered = true;
         
-        this.image.emit('hover');
+        this.emit('hover');
     }
 
     public enterRestState(): void {
@@ -67,7 +72,7 @@ class UiImageButton extends UiContainer implements IUiClickable, IUiHoverable {
 
         this.isHovered = false;
 
-        this.image.emit('rest');
+        this.emit('rest');
     }
 }
 
