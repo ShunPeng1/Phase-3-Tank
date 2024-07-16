@@ -1,3 +1,4 @@
+import TweenUtilities from "../../ultilities/TweenUtilities";
 import UiContainer from "../../ultilities/ui/UiContainer";
 import UiImageButton from "../../ultilities/ui/UiImageButton";
 
@@ -5,6 +6,8 @@ class GameUi extends UiContainer {
     private playUi : UiContainer;
     private pauseUi : UiContainer;
     private settingUi : UiContainer;
+    private loseUi : UiContainer;
+    private winUi : UiContainer;
     
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y);
@@ -12,29 +15,47 @@ class GameUi extends UiContainer {
         scene.add.existing(this);
 
 
-        // this.playUi = new UiContainer(scene, 0, 0);
-        // this.add(this.playUi, "Center");
+        this.playUi = new UiContainer(scene, 0, 0);
+        this.add(this.playUi, "Center");
         
 
         const pauseButton = new UiImageButton(scene, 100, 100, 'icon-small-white-outline-pause');
         pauseButton.setScale(0.5);
 
-        pauseButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
-            console.log('pause button down');
-        });
-        pauseButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
-            console.log('pause button up');
-        });
-        pauseButton.on(UiImageButton.HOVER_EVENT, () => {
-            console.log('pause button hover');
-        });
-        pauseButton.on(UiImageButton.REST_EVENT, () => {
-            console.log('pause button rest');
-        });
 
         
-        //this.playUi.add(pauseButton,"TopLeft", -100, -100);
+        pauseButton.on(UiImageButton.BUTTON_UP_EVENT, this.showPauseUi);
+        TweenUtilities.applyAlphaTweens(pauseButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 1, 0.7, 200);
+        
+
+
+
+        
+        this.playUi.add(pauseButton, "TopLeft", -50, -50);
     }
+
+
+
+    private showPauseUi() {
+        this.pauseUi.setVisible(true);
+        this.playUi.setVisible(false);
+    }
+
+    private showSettingUi() {
+        this.settingUi.setVisible(true);
+        this.pauseUi.setVisible(true);
+    }
+
+    private showLoseUi() {
+        this.loseUi.setVisible(true);
+        this.playUi.setVisible(false);
+    }
+
+    private showWinUi() {
+        this.winUi.setVisible(true);
+        this.playUi.setVisible(false);
+    }
+
 }
 
 
