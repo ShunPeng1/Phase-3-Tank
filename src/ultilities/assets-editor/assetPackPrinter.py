@@ -30,7 +30,7 @@ def print_asset_info(directory, output_file):
                     file.write(f"""      {{
         "type": "{file_type}",
         "key": "{key}",
-        "url": "{url}"
+        "url": "{directory}{url}"
       }},\n""")
 
 # Example usage
