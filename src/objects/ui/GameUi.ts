@@ -93,11 +93,14 @@ class GameUi extends GameObjects.Graphics {
         settingButton.setScale(0.8);
         panel.add(settingButton, "BottomCenter", 0, -100); // Swapped position to BottomLeft
 
-        const settingIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-menu');
+        const settingIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-return');
         settingIcon.setScale(1.2);
         settingButton.add(settingIcon, "Center");
 
-        settingButton.on(UiImageButton.BUTTON_UP_EVENT, this.showSettingUi, this);
+        settingButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.scene.time.delayedCall(700, () => this.scene.scene.start('GameScene'));
+            this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
+        });
         TweenUtilities.applyTintTweens(settingButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(settingButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, settingButton.scaleX, settingButton.scaleY, 1.1, 100);
 
