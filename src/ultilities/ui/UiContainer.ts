@@ -69,6 +69,10 @@ class UiContainer extends Phaser.GameObjects.Container implements IUi {
         return this;
     }
 
+    public getHitArea(): Phaser.GameObjects.Zone {
+        return this.hitArea;
+    }
+
 }
 
 

@@ -72,7 +72,8 @@ class Bullet extends Phaser.GameObjects.Image implements IPausable {
             this.destroy();
         });
 
-        this.setVisible(false);
+        // For Pause do pause the explosion sprite
+        this.setVisible(false); 
         this.body.enable = false;
 
         

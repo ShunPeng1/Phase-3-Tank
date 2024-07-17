@@ -5,6 +5,7 @@ import UiContainer from "../../ultilities/ui/UiContainer";
 import UiImageButton from "../../ultilities/ui/UiImageButton";
 import UiImage from "../../ultilities/ui/UiImage";
 import BlackUiImage from "./BlackUiImage";
+import UiImageSlider from "../../ultilities/ui/UiImageSlider";
 
 class GameUi extends GameObjects.Graphics {
     private pauseController : PauseController;
@@ -117,7 +118,22 @@ class GameUi extends GameObjects.Graphics {
         TweenUtilities.applyTintTweens(resumeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(resumeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, resumeButton.scaleX, resumeButton.scaleY, 1.1, 100);
 
-        this.pauseUi.setVisible(false);
+
+        const musicSlider = new UiImageSlider(this.scene, 0, 0, 'slim-slider-frame', new Phaser.Math.Vector2(-550, 0), new Phaser.Math.Vector2(550, 0), new UiImage(this.scene, 0, 0, 'slim-slider-red-button'), true);
+        musicSlider.setScale(0.7);
+        panel.add(musicSlider, "BottomCenter", 0, -500);
+
+        const musicSliderBackground = new UiImage(this.scene, 0, 0, 'slim-slider-background');
+        musicSlider.add(musicSliderBackground, "Center");
+        musicSlider.sendToBack(musicSliderBackground);
+
+        musicSlider.on(UiImageSlider.VALUE_CHANGED_EVENT, (oldValue: number, newValue: number) => {
+            console.log("Music volume changed to", newValue);
+        });
+
+
+
+
     }
 
     private initializeSceneLoad() {

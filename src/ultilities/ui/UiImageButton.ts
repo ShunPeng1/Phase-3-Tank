@@ -20,7 +20,7 @@ class UiImageButton extends UiImage implements IUiClickable {
         this.setInteractive();
     }
 
-    public setInteractive(): this {
+    public setInteractive(hitArea?: Phaser.Types.Input.InputConfiguration | any, callback?: Phaser.Types.Input.HitAreaCallback, dropZone?: boolean): this {
         this.hitArea.setInteractive({
             useHandCursor: true
         });

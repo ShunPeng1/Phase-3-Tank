@@ -50,10 +50,8 @@ class UiImage extends UiContainer implements IUiHoverable, Phaser.GameObjects.Co
         return this;
     }
 
-    public setInteractive(): this {
-        this.hitArea.setInteractive({
-            useHandCursor: true
-        });
+    public setInteractive(hitArea?: Phaser.Types.Input.InputConfiguration | any, callback?: Phaser.Types.Input.HitAreaCallback, dropZone?: boolean): this {
+        this.hitArea.setInteractive(hitArea, callback, dropZone);
 
         // Only listen to hover events
         this.hitArea.on('pointerover', this.enterHoverState, this);
