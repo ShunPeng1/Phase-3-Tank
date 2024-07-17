@@ -54,6 +54,61 @@
       },
       {
         "type": "image",
+        "key": "flash-a-01",
+        "url": "./assets/sprites/flash-a-01.png"
+      },
+      {
+        "type": "image",
+        "key": "flash-a-02",
+        "url": "./assets/sprites/flash-a-02.png"
+      },
+      {
+        "type": "image",
+        "key": "flash-a-03",
+        "url": "./assets/sprites/flash-a-03.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-01",
+        "url": "./assets/sprites/explosion-01.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-02",
+        "url": "./assets/sprites/explosion-02.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-03",
+        "url": "./assets/sprites/explosion-03.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-04",
+        "url": "./assets/sprites/explosion-04.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-05",
+        "url": "./assets/sprites/explosion-05.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-06",
+        "url": "./assets/sprites/explosion-06.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-07",
+        "url": "./assets/sprites/explosion-07.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-08",
+        "url": "./assets/sprites/explosion-08.png"
+      },
+      {
+        "type": "image",
         "key": "tiles",
         "url": "./assets/tiles/tiles.png"
       },
