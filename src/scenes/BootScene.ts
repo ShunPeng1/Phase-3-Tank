@@ -1,3 +1,5 @@
+import { GameObjects } from "phaser";
+
 class BootScene extends Phaser.Scene {
     private loadingBar: Phaser.GameObjects.Graphics;
     private progressBar: Phaser.GameObjects.Graphics;
@@ -41,6 +43,16 @@ class BootScene extends Phaser.Scene {
 
         // load our package
         this.load.pack('preload', './assets/pack.json', 'preload');
+
+
+        //
+        const graphics = new GameObjects.Graphics(this,{ fillStyle: { color: 0x000000 } });
+
+        graphics.fillRect(0, 0, this.scale.width, this.scale.height);
+
+        const textureName = 'black';
+        graphics.generateTexture(textureName, this.scale.width, this.scale.height);
+
     }
 
     update(): void {

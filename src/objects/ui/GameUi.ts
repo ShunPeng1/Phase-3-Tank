@@ -4,22 +4,21 @@ import TweenUtilities from "../../ultilities/TweenUtilities";
 import UiContainer from "../../ultilities/ui/UiContainer";
 import UiImageButton from "../../ultilities/ui/UiImageButton";
 import UiImage from "../../ultilities/ui/UiImage";
+import BlackUiImage from "./BlackUiImage";
 
 class GameUi extends GameObjects.Graphics {
     private pauseController : PauseController;
     
     private playUi : UiContainer;
     private pauseUi : UiContainer;
-    private settingUi : UiContainer;
-    private loseUi : UiContainer;
-    private winUi : UiContainer;
+    //private settingUi : UiContainer;
+    //private loseUi : UiContainer;
+    //private winUi : UiContainer;
 
     // Black background to cover the game when the pause menu is shown
-    private blackBackground : UiImage;
-    private static readonly BLACK_BACKGROUND_ENABLE_EVENT = "blackBackgroundEnable";
-    private static readonly BLACK_BACKGROUND_DISABLE_EVENT = "blackBackgroundDisable";
-
-
+    private blackBackground : BlackUiImage;
+    private blackSceneTransition : BlackUiImage;
+    
     
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene);
@@ -30,9 +29,15 @@ class GameUi extends GameObjects.Graphics {
        
         this.createPauseUi();
 
-        this.createBlackBackground(scene);
+        this.blackBackground = new BlackUiImage(scene, 0, 0.4, 200);
+        this.blackBackground.setDepth(999);
+
+        this.blackSceneTransition = new BlackUiImage(scene, 1, 0, 700);
+        this.blackSceneTransition.setDepth(2000);
 
         this.pauseController = new PauseController(scene, []);        
+
+        this.initializeSceneLoad();
     }
 
 
@@ -76,7 +81,10 @@ class GameUi extends GameObjects.Graphics {
         homeIcon.setScale(1.2);
         homeButton.add(homeIcon, "Center");
 
-        homeButton.on(UiImageButton.BUTTON_UP_EVENT, () => {this.scene.scene.start('MenuScene')});
+        homeButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.scene.time.delayedCall(700, () => this.scene.scene.start('MenuScene'));
+            this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
+        });
         TweenUtilities.applyTintTweens(homeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         
         // Set up the settings button
@@ -107,25 +115,17 @@ class GameUi extends GameObjects.Graphics {
         this.pauseUi.setVisible(false);
     }
 
-    
-    private createBlackBackground(scene: Phaser.Scene) {
-        const graphics = new GameObjects.Graphics(scene,{ fillStyle: { color: 0x000000 } });
+    private initializeSceneLoad() {
+        this.playUi.setVisible(true);
+        this.pauseUi.setVisible(false);
+        // this.settingUi.setVisible(false);
+        // this.loseUi.setVisible(false);
+        // this.winUi.setVisible(false);
 
-        graphics.fillRect(0, 0, scene.scale.width, scene.scale.height);
-
-        const textureName = 'blackBackground';
-        graphics.generateTexture(textureName, scene.scale.width, scene.scale.height);
-
-
-        this.blackBackground = new UiImage(scene, 0, 0, textureName);
-        this.blackBackground.setSize(scene.scale.width, scene.scale.height);
-        this.blackBackground.setPosition(scene.scale.width / 2, scene.scale.height / 2);
-        this.blackBackground.setDepth(999);
-        this.blackBackground.setAlpha(0);
-
-        TweenUtilities.applyAlphaTweens(this.blackBackground, [GameUi.BLACK_BACKGROUND_ENABLE_EVENT], [GameUi.BLACK_BACKGROUND_DISABLE_EVENT], 0, 0.4, 200);
+        this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_ENABLE_EVENT);
     }
 
+    
     private showPauseUi() {
         // Ensure the pause UI and the black background are initially invisible
         this.pauseUi.setVisible(true);
@@ -136,7 +136,7 @@ class GameUi extends GameObjects.Graphics {
         this.pauseController.setObjectFromScene(this.scene);
         this.pauseController.pause();
 
-        this.blackBackground.emit(GameUi.BLACK_BACKGROUND_ENABLE_EVENT);
+        this.blackBackground.emit(BlackUiImage.BLACK_UI_IMAGE_ENABLE_EVENT);
     }
 
     private hidePauseUi() {
@@ -145,21 +145,21 @@ class GameUi extends GameObjects.Graphics {
 
         this.pauseController.resume();
 
-        this.blackBackground.emit(GameUi.BLACK_BACKGROUND_DISABLE_EVENT);
+        this.blackBackground.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
     }
 
     private showSettingUi() {
-        this.settingUi.setVisible(true);
+        //this.settingUi.setVisible(true);
         this.pauseUi.setVisible(true);
     }
 
     private showLoseUi() {
-        this.loseUi.setVisible(true);
+        //this.loseUi.setVisible(true);
         this.playUi.setVisible(false);
     }
 
     private showWinUi() {
-        this.winUi.setVisible(true);
+        //this.winUi.setVisible(true);
         this.playUi.setVisible(false);
     }
 

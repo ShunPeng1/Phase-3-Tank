@@ -4,17 +4,14 @@ import TweenUtilities from "../../ultilities/TweenUtilities";
 import UiContainer from "../../ultilities/ui/UiContainer";
 import UiImageButton from "../../ultilities/ui/UiImageButton";
 import UiImage from "../../ultilities/ui/UiImage";
+import BlackUiImage from "./BlackUiImage";
 
 class MenuUi extends GameObjects.Graphics {
     
     private menuUi : UiContainer;
     private settingUi : UiContainer;
 
-    // Black background to cover the game when the pause menu is shown
-    private blackBackground : UiImage;
-    private static readonly BLACK_BACKGROUND_ENABLE_EVENT = "blackBackgroundEnable";
-    private static readonly BLACK_BACKGROUND_DISABLE_EVENT = "blackBackgroundDisable";
-
+    private blackSceneTransition: BlackUiImage;
 
     
     constructor(scene: Phaser.Scene) {
@@ -55,7 +52,10 @@ class MenuUi extends GameObjects.Graphics {
         });
         playButton.add(playText, "Center");
 
-        playButton.on(UiImageButton.BUTTON_UP_EVENT, () => { this.scene.scene.start('GameScene'); });
+        playButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.scene.time.delayedCall(400, () => this.scene.scene.start('GameScene'));
+            this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
+        });
 
         // Settings button
         const settingsButton = new UiImageButton(this.scene, 0, 0, 'button-text-small-blue-round');
@@ -87,21 +87,10 @@ class MenuUi extends GameObjects.Graphics {
 
     
     private createBlackBackground(scene: Phaser.Scene) {
-        const graphics = new GameObjects.Graphics(scene,{ fillStyle: { color: 0x000000 } });
+        this.blackSceneTransition = new BlackUiImage(scene, 1, 0, 400);
+        this.blackSceneTransition.setDepth(2000);
 
-        graphics.fillRect(0, 0, scene.scale.width, scene.scale.height);
-
-        const textureName = 'blackBackground';
-        graphics.generateTexture(textureName, scene.scale.width, scene.scale.height);
-
-
-        this.blackBackground = new UiImage(scene, 0, 0, textureName);
-        this.blackBackground.setSize(scene.scale.width, scene.scale.height);
-        this.blackBackground.setPosition(scene.scale.width / 2, scene.scale.height / 2);
-        this.blackBackground.setDepth(999);
-        this.blackBackground.setAlpha(0);
-
-        TweenUtilities.applyAlphaTweens(this.blackBackground, [MenuUi.BLACK_BACKGROUND_ENABLE_EVENT], [MenuUi.BLACK_BACKGROUND_DISABLE_EVENT], 0, 0.4, 200);
+        this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_ENABLE_EVENT);
     }
 
 
