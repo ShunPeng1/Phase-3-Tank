@@ -1,4 +1,4 @@
-class PauseGroup {
+class PauseController {
     private scene: Phaser.Scene;
     private objects: IPausable[] = [];
 
@@ -36,4 +36,4 @@ class PauseGroup {
 
 }
 
-export default PauseGroup;
+export default PauseController;

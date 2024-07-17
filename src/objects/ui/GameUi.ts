@@ -1,5 +1,5 @@
 import { GameObjects } from "phaser";
-import PauseGroup from "../../ultilities/pause/PauseGroup";
+import PauseController from "../../ultilities/pause/PauseGroup";
 import TweenUtilities from "../../ultilities/TweenUtilities";
 import UiContainer from "../../ultilities/ui/UiContainer";
 import UiImageButton from "../../ultilities/ui/UiImageButton";
@@ -12,7 +12,7 @@ class GameUi extends GameObjects.Graphics {
     private loseUi : UiContainer;
     private winUi : UiContainer;
 
-    private pauseGroup : PauseGroup;
+    private pauseGroup : PauseController;
     
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene);
@@ -24,7 +24,7 @@ class GameUi extends GameObjects.Graphics {
         this.createPauseUi();
 
 
-        this.pauseGroup = new PauseGroup(scene, []);        
+        this.pauseGroup = new PauseController(scene, []);        
     }
 
     private createPlayUi(){
