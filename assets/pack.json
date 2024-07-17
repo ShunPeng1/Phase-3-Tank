@@ -1,0 +1,1503 @@
+{
+  "preload": {
+    "files": [
+      {
+        "type": "tilemapTiledJSON",
+        "key": "levelMap",
+        "url": "./assets/maps/levelMap.json"
+      },
+      {
+        "type": "bitmapFont",
+        "key": "font",
+        "textureURL": "./assets/font/font.png",
+        "fontDataURL": "./assets/font/font.fnt"
+      },
+      {
+        "type": "image",
+        "key": "tankBlue",
+        "url": "./assets/sprites/tank-blue.png"
+      },
+      {
+        "type": "image",
+        "key": "tankRed",
+        "url": "./assets/sprites/tank-red.png"
+      },
+      {
+        "type": "image",
+        "key": "barrelBlue",
+        "url": "./assets/sprites/barrel-blue.png"
+      },
+      {
+        "type": "image",
+        "key": "barrelRed",
+        "url": "./assets/sprites/barrel-red.png"
+      },
+      {
+        "type": "image",
+        "key": "bulletBlue",
+        "url": "./assets/sprites/bullet-blue.png"
+      },
+      {
+        "type": "image",
+        "key": "bulletRed",
+        "url": "./assets/sprites/bullet-red.png"
+      },
+      {
+        "type": "image",
+        "key": "lineArrow",
+        "url": "./assets/sprites/line-arrow.png"
+      },
+      {
+        "type": "image",
+        "key": "tireTrack",
+        "url": "./assets/sprites/tire-track.png"
+      },
+      {
+        "type": "image",
+        "key": "flash-a-01",
+        "url": "./assets/sprites/flash-a-01.png"
+      },
+      {
+        "type": "image",
+        "key": "flash-a-02",
+        "url": "./assets/sprites/flash-a-02.png"
+      },
+      {
+        "type": "image",
+        "key": "flash-a-03",
+        "url": "./assets/sprites/flash-a-03.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-01",
+        "url": "./assets/sprites/explosion-01.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-02",
+        "url": "./assets/sprites/explosion-02.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-03",
+        "url": "./assets/sprites/explosion-03.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-04",
+        "url": "./assets/sprites/explosion-04.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-05",
+        "url": "./assets/sprites/explosion-05.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-06",
+        "url": "./assets/sprites/explosion-06.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-07",
+        "url": "./assets/sprites/explosion-07.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion-08",
+        "url": "./assets/sprites/explosion-08.png"
+      },
+      {
+        "type": "image",
+        "key": "tiles",
+        "url": "./assets/tiles/tiles.png"
+      },
+      {
+        "type": "image",
+        "key": "barrelGreyTop",
+        "url": "./assets/obstacles/barrel-grey-top.png"
+      },
+      {
+        "type": "image",
+        "key": "barrelGreySideRust",
+        "url": "./assets/obstacles/barrel-grey-side-rust.png"
+      },
+      {
+        "type": "image",
+        "key": "barrelGreySide",
+        "url": "./assets/obstacles/barrel-grey-side.png"
+      },
+      {
+        "type": "image",
+        "key": "barrelRedTop",
+        "url": "./assets/obstacles/barrel-red-top.png"
+      },
+      {
+        "type": "image",
+        "key": "barrelRedSide",
+        "url": "./assets/obstacles/barrel-red-side.png"
+      },
+      {
+        "type": "image",
+        "key": "treeSmall",
+        "url": "./assets/obstacles/tree-small.png"
+      },
+      {
+        "type": "image",
+        "key": "treeLarge",
+        "url": "./assets/obstacles/tree-large.png"
+      },
+      {
+        "type": "image",
+        "key": "banner-blank",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/banner-blank.png"
+      },
+      {
+        "type": "image",
+        "key": "banner-blue",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/banner-blue.png"
+      },
+      {
+        "type": "image",
+        "key": "banner-green",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/banner-green.png"
+      },
+      {
+        "type": "image",
+        "key": "banner-grey",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/banner-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "banner-orange",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/banner-orange.png"
+      },
+      {
+        "type": "image",
+        "key": "banner-red",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/banner-red.png"
+      },
+      {
+        "type": "image",
+        "key": "banner-white-outine",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/banner-white-outine.png"
+      },
+      {
+        "type": "image",
+        "key": "box-blank-rounded",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-blank-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "box-blank-square",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-blank-square.png"
+      },
+      {
+        "type": "image",
+        "key": "box-blue-rounded",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-blue-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "box-blue-square",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-blue-square.png"
+      },
+      {
+        "type": "image",
+        "key": "box-orange-rounded",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-orange-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "box-orange-square",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-orange-square.png"
+      },
+      {
+        "type": "image",
+        "key": "box-rounded",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "box-square",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-square.png"
+      },
+      {
+        "type": "image",
+        "key": "box-white-outline-rounded",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-white-outline-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "box-white-outline-square",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/box-white-outline-square.png"
+      },
+      {
+        "type": "image",
+        "key": "text-box-blank-middle",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/text-box-blank-middle.png"
+      },
+      {
+        "type": "image",
+        "key": "text-box-blank-side",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/text-box-blank-side.png"
+      },
+      {
+        "type": "image",
+        "key": "text-box-green-middle",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/text-box-green-middle.png"
+      },
+      {
+        "type": "image",
+        "key": "text-box-green-side",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/text-box-green-side.png"
+      },
+      {
+        "type": "image",
+        "key": "text-box-middle",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/text-box-middle.png"
+      },
+      {
+        "type": "image",
+        "key": "text-box-side",
+        "url": "./assets/penzilla-basic-gui/boxes-banners/text-box-side.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-background-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-background-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-background-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-background-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-background-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-background-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-blank-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-blank-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-blank-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-blank-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-blank-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-blank-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-blue-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-blue-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-blue-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-blue-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-blue-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-blue-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-green-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-green-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-green-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-green-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-green-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-green-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-grey-outline-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-grey-outline-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-grey-outline-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-grey-outline-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-grey-outline-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-grey-outline-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-orange-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-orange-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-orange-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-orange-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-orange-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-orange-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-red-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-red-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-red-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-red-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-red-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-red-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-large-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-large-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-background-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-background-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-background-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-background-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-background-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-background-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-blank-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-blank-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-blank-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-blank-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-blank-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-blank-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-blue-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-blue-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-blue-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-blue-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-blue-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-blue-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-green-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-green-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-green-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-green-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-green-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-green-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-grey-outline-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-grey-outline-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-grey-outline-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-grey-outline-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-grey-outline-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-grey-outline-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-orange-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-orange-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-orange-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-orange-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-orange-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-orange-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-red-circle",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-red-circle.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-red-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-red-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-red-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-red-square.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-rounded",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-rounded.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-button-small-square",
+        "url": "./assets/penzilla-basic-gui/buttons-icons/icon-button-small-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-background-on-off-background",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-background-on-off-background.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blank-on-off-background",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blank-on-off-background.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blank-on-off-button",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blank-on-off-button.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blank-text-field",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blank-text-field.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blank-text-input",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blank-text-input.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blue-on-off-background",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blue-on-off-background.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blue-on-off-button",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blue-on-off-button.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blue-text-field",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blue-text-field.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-blue-text-input",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-blue-text-input.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-geen-on-off-button",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-geen-on-off-button.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-blank-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-blank-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-blank-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-blank-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-blue-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-blue-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-blue-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-blue-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-green-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-green-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-green-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-green-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-grey-outline-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-grey-outline-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-grey-outline-square-1",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-grey-outline-square-1.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-grey-outline-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-grey-outline-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-orange-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-orange-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-orange-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-orange-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-large-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-large-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-on-off-background",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-on-off-background.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-on-off-button",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-on-off-button.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-orange-on-off-background",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-orange-on-off-background.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-orange-on-off-button",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-orange-on-off-button.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-orange-text-field",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-orange-text-field.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-orange-text-input",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-orange-text-input.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-blank-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-blank-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-blank-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-blank-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-blue-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-blue-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-blue-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-blue-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-green-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-green-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-green-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-green-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-grey-outline-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-grey-outline-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-orange-round",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-orange-round.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-orange-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-orange-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-r-ound",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-r-ound.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-small-square",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-small-square.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-text-input",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-text-input.png"
+      },
+      {
+        "type": "image",
+        "key": "button-text-textfield",
+        "url": "./assets/penzilla-basic-gui/buttons-text/button-text-textfield.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-check",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-check.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-exit-orange",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-exit-orange.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-exit-red",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-exit-red.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-menu",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-menu.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-no",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-no.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-options",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-options.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-replay",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-replay.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-resume",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-resume.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-select",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-select.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-shop",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-shop.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-x-green-white-outline",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-x-green-white-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-x-green",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-x-green.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-x-red",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-x-red.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-x-white-outline",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-x-white-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-yes-green",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-yes-green.png"
+      },
+      {
+        "type": "image",
+        "key": "premade-buttons-yes-orange",
+        "url": "./assets/penzilla-basic-gui/buttons-text/premade-buttons-yes-orange.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-audio-blank",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-audio-blank.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-audio-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-audio-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-audio-off-blank",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-audio-off-blank.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-audio-off-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-audio-off-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-empty-seethrough-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-empty-seethrough-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-empty-white-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-empty-white-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-empty",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-empty.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-full-seethrough-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-full-seethrough-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-full-white-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-full-white-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-full",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-full.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-half-seethrough-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-half-seethrough-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-half-white-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-half-white-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-heart-half",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-heart-half.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-menu-blank",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-menu-blank.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-menu-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-menu-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-music-blank",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-music-blank.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-music-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-music-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-music-off-blank",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-music-off-blank.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-music-off-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-music-off-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-star-grey-white-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-star-grey-white-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-star-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-star-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-star-seethrough-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-star-seethrough-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-star-srey-seethrough-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-star-srey-seethrough-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-star-white-outline",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-star-white-outline.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-large-star",
+        "url": "./assets/penzilla-basic-gui/icons/icon-large-star.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-arrow",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-arrow.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-audio-off",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-audio-off.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-audio",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-audio.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-check",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-check.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-dollar",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-dollar.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-euro",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-euro.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-help",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-help.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-home",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-home.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-info",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-info.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-menu",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-menu.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-music-off",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-music-off.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-music",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-music.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-pause",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-pause.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-pounds",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-pounds.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-return",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-return.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-shop",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-shop.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-x",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-x.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-blank-yen",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-blank-yen.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-coin-dollar",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-coin-dollar.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-coin-euro",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-coin-euro.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-coin-pound",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-coin-pound.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-coin-yen",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-coin-yen.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-coin",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-coin.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-diamond",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-diamond.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-heart-empty",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-heart-empty.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-heart-full",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-heart-full.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-heart-half",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-heart-half.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-key",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-key.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-lock",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-lock.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-looking-glass",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-looking-glass.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-star-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-star-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-star",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-star.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-arrow",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-arrow.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-audio-off",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-audio-off.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-audio",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-audio.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-check",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-check.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-coin",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-coin.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-diamond",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-diamond.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-heart-empty",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-heart-empty.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-heart-full",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-heart-full.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-heart-half",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-heart-half.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-home",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-home.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-key",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-key.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-logk",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-logk.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-looking-glass",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-looking-glass.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-menu",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-menu.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-music-off",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-music-off.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-music",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-music.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-pause",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-pause.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-return",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-return.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-shop",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-shop.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-star-grey",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-star-grey.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-star",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-star.png"
+      },
+      {
+        "type": "image",
+        "key": "icon-small-white-outline-x",
+        "url": "./assets/penzilla-basic-gui/icons/icon-small-white-outline-x.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blank-base",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blank-base.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blank-button",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blank-button.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blank-pointer",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blank-pointer.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blank-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blank-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blue-base",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blue-base.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blue-button",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blue-button.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blue-pointer",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blue-pointer.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-blue-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-blue-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-button",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-button.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-orange-base",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-orange-base.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-orange-button",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-orange-button.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-orange-pointer",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-orange-pointer.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-orange-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-orange-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-pointer",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-pointer.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-red-button",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-red-button.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-bar-white-outline-base",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-bar-white-outline-base.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-slider-arrow",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-slider-arrow.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-slider-blank-arrow",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-slider-blank-arrow.png"
+      },
+      {
+        "type": "image",
+        "key": "scroll-slider-white-outline-arrow",
+        "url": "./assets/penzilla-basic-gui/sliders/scroll-slider-white-outline-arrow.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-background",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-background.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-base",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-base.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-blue-background",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-blue-background.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-blue-button",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-blue-button.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-blue-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-blue-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-blue-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-blue-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-button",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-button.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-green-pointer",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-green-pointer.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-green-scoller",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-green-scoller.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-orange-background",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-orange-background.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-orange-button",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-orange-button.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-orange-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-orange-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-orange-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-orange-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-red-button",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-red-button.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-scroller-green",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-scroller-green.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "slim-slider-white-outline-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/slim-slider-white-outline-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-s-lider-green-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-s-lider-green-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-background",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-background.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-background-1",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-background-1.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-background",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-background.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-button-1",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-button-1.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-button",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-button.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-frame-1",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-frame-1.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-scroller-1",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-scroller-1.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blank-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blank-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blue-background",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blue-background.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blue-button",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blue-button.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blue-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blue-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-blue-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-blue-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-button",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-button.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-orange-background",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-orange-background.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-orange-button",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-orange-button.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-orange-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-orange-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-orange-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-orange-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-red-button",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-red-button.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-scroller",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-scroller.png"
+      },
+      {
+        "type": "image",
+        "key": "wide-slider-white-outline-frame",
+        "url": "./assets/penzilla-basic-gui/sliders/wide-slider-white-outline-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "splash-art",
+        "url": "./assets/images/splash-art.jpg"
+      }
+
+    ]
+  }
+}
