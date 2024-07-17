@@ -1436,6 +1436,11 @@
         "type": "image",
         "key": "wide-slider-white-outline-frame",
         "url": "./assets/penzilla-basic-gui/sliders/wide-slider-white-outline-frame.png"
+      },
+      {
+        "type": "image",
+        "key": "splash-art",
+        "url": "./assets/images/splash-art.jpg"
       }
 
     ]
