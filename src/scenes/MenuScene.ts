@@ -1,4 +1,5 @@
 import MenuUi from "../objects/ui/MenuUi";
+import AudioController from "../ultilities/audio/AudioController";
 
 class MenuScene extends Phaser.Scene {
 
@@ -16,6 +17,8 @@ class MenuScene extends Phaser.Scene {
 
     create(): void {
         let menuUi = new MenuUi(this);
+
+        let audioController = new AudioController(this);
     }
 
     

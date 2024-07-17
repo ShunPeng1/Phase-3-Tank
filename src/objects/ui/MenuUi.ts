@@ -1,5 +1,5 @@
 import { GameObjects } from "phaser";
-import PauseController from "../../ultilities/pause/PauseGroup";
+import PauseController from "../../ultilities/pause/PauseController";
 import TweenUtilities from "../../ultilities/TweenUtilities";
 import UiContainer from "../../ultilities/ui/UiContainer";
 import UiImageButton from "../../ultilities/ui/UiImageButton";

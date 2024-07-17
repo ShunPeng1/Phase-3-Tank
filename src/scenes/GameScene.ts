@@ -4,6 +4,7 @@ import Enemy from "../objects/Enemy";
 import Obstacle from "../objects/obstacles/Obstacle";
 import Bullet from "../objects/Bullet";
 import GameUi from "../objects/ui/GameUi";
+import AudioController from "../ultilities/audio/AudioController";
 
 
 
@@ -103,7 +104,7 @@ class GameScene extends Phaser.Scene {
 
 
 
-
+        let audioController = new AudioController(this);
         let gameUi = new GameUi(this, 0, 0);
 
     }
