@@ -30,5 +30,5 @@ def rename_files_in_directory(directory_path):
             print(f"Renamed {old_dir_path} to {new_dir_path}")
 
 # Example usage
-directory_path = "./assets/penzilla-basic-gui"
+directory_path = "./assets/audio"
 rename_files_in_directory(directory_path)

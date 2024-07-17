@@ -34,6 +34,6 @@ def print_asset_info(directory, output_file):
       }},\n""")
 
 # Example usage
-directory = "./assets/penzilla-basic-gui/"
+directory = "./assets/audio/"
 output_file = "asset_info.txt"
 print_asset_info(directory, output_file)

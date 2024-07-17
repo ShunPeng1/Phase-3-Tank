@@ -9,6 +9,8 @@ class AudioController {
     private musicConfig: Phaser.Types.Sound.SoundConfig;
     private soundConfig: Phaser.Types.Sound.SoundConfig;
 
+    public static readonly AUDIO_CONTROLLER_KEY = 'audioController';
+
     constructor(scene: Scene) {
         this.scene = scene;
 
