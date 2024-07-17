@@ -73,10 +73,9 @@ class Bullet extends Phaser.GameObjects.Image implements IPausable {
         });
 
         this.setVisible(false);
+        this.body.enable = false;
 
-        this.originalVelocity = new Phaser.Math.Vector2(0, 0);
-        this.body.setVelocity(0, 0);
-
+        
     }
 }
 
