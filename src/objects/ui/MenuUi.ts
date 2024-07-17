@@ -75,7 +75,10 @@ class MenuUi extends GameObjects.Graphics {
         // Optionally, apply tint tweens to buttons for visual feedback
         // Assuming TweenUtilities and UiImageButton are part of your project's utilities
         TweenUtilities.applyTintTweens(playButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(playButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, playButton.scaleX, playButton.scaleY, 1.1, 100);
+        
         TweenUtilities.applyTintTweens(settingsButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(settingsButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, settingsButton.scaleX, settingsButton.scaleY, 1.1, 100);
     }
 
     private showSettingsUi() {

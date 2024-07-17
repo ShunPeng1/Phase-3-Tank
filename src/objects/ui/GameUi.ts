@@ -52,7 +52,7 @@ class GameUi extends GameObjects.Graphics {
 
         pauseButton.on(UiImageButton.BUTTON_UP_EVENT, this.showPauseUi, this);
         TweenUtilities.applyTintTweens(pauseButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
-        
+        TweenUtilities.applyScaleTweens(pauseButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, pauseButton.scaleX, pauseButton.scaleY, 1.1, 100);        
 
         this.playUi.add(pauseButton, "TopLeft", -30, -30);
 
@@ -86,7 +86,8 @@ class GameUi extends GameObjects.Graphics {
             this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
         });
         TweenUtilities.applyTintTweens(homeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
-        
+        TweenUtilities.applyScaleTweens(homeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, homeButton.scaleX, homeButton.scaleY, 1.1, 100);
+
         // Set up the settings button
         const settingButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-blue-square');
         settingButton.setScale(0.8);
@@ -98,7 +99,7 @@ class GameUi extends GameObjects.Graphics {
 
         settingButton.on(UiImageButton.BUTTON_UP_EVENT, this.showSettingUi, this);
         TweenUtilities.applyTintTweens(settingButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
-
+        TweenUtilities.applyScaleTweens(settingButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, settingButton.scaleX, settingButton.scaleY, 1.1, 100);
 
         // Set up the resume button
         const resumeButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-green-square');
@@ -111,6 +112,7 @@ class GameUi extends GameObjects.Graphics {
 
         resumeButton.on(UiImageButton.BUTTON_UP_EVENT, this.hidePauseUi, this);
         TweenUtilities.applyTintTweens(resumeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(resumeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, resumeButton.scaleX, resumeButton.scaleY, 1.1, 100);
 
         this.pauseUi.setVisible(false);
     }

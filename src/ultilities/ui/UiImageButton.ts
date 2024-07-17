@@ -47,6 +47,18 @@ class UiImageButton extends UiImage implements IUiClickable {
         return this;
     }
 
+    public enterRestState(): void {
+        if (!this.isHovered) return;
+
+        this.isHovered = false;
+
+        if (this.isClicked){
+            this.isClicked = false;
+        }
+
+        this.emit(UiImage.BUTTON_REST_EVENT);
+    }
+
 
     public enterPressDownState(): void {
         this.isClicked = true;
