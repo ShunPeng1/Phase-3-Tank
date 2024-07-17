@@ -7,25 +7,26 @@ class UiImageSlider extends UiImage implements IUiClickable {
 
     private knob: UiContainer;
     private mustKnobDrag: boolean;
+    private dragSpeed: number;
+    private dragPosition: Phaser.Math.Vector2;
 
     private start:  Phaser.Math.Vector2;
     private end:  Phaser.Math.Vector2;
-    private currentPosition:  Phaser.Math.Vector2;
     private currentValue: number;
-    
+
     public static readonly BUTTON_DOWN_EVENT: string = 'buttondown';
     public static readonly BUTTON_UP_EVENT: string = 'buttonup';
     public static readonly VALUE_CHANGED_EVENT: string = 'valuechanged';
 
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string | Phaser.Textures.Texture, minPosition: Phaser.Math.Vector2, maxPosition:  Phaser.Math.Vector2, knob : UiContainer, mustKnobDrag : boolean = false , frame?: string | number) {
+    constructor(scene: Phaser.Scene, x: number, y: number, texture: string | Phaser.Textures.Texture, minPosition: Phaser.Math.Vector2, maxPosition:  Phaser.Math.Vector2, knob : UiContainer, dragSpeed : number = 1, mustKnobDrag : boolean = false , frame?: string | number) {
         super(scene, x, y, texture, frame);
         this.start = minPosition;
         this.end = maxPosition;
-        this.currentPosition = new Phaser.Math.Vector2(x, y);
         this.currentValue = 0;
 
         this.knob = knob;
         this.mustKnobDrag = mustKnobDrag;
+        this.dragSpeed = dragSpeed;
 
         this.add(this.knob);
         this.bringToTop(this.knob);
@@ -52,6 +53,7 @@ class UiImageSlider extends UiImage implements IUiClickable {
         const totalDistance = this.start.distance(this.end);
         const currentDistance = this.start.distance(position);
         const newValue = currentDistance / totalDistance;
+
         if (newValue !== this.currentValue) {
             this.emit(UiImageSlider.VALUE_CHANGED_EVENT, this.currentValue, newValue);
             this.currentValue = newValue;
@@ -70,6 +72,8 @@ class UiImageSlider extends UiImage implements IUiClickable {
             });
 
             this.knob.getHitArea().on('drag', this.dragKnob, this);
+            this.knob.getHitArea().on('dragstart', this.startDragKnob, this);
+            this.knob.getHitArea().on('dragend', this.endDragKnob, this);
         } else {
             console.error("Knob is not initialized.");
         }
@@ -87,7 +91,9 @@ class UiImageSlider extends UiImage implements IUiClickable {
     public disableInteractive(): this {
         this.scene.input.setDraggable(this.knob, false);
 
-        this.knob.off('drag', this.dragKnob, this);
+        this.knob.getHitArea().off('drag', this.dragKnob, this);
+        this.knob.getHitArea().off('dragstart', this.startDragKnob, this);
+        this.knob.getHitArea().off('dragend', this.endDragKnob, this);
 
         this.hitArea.off('pointerdown', this.enterPressDownState, this);
         this.hitArea.off('pointerup', this.enterPressUpState, this);
@@ -100,10 +106,18 @@ class UiImageSlider extends UiImage implements IUiClickable {
         return this;
     }
 
+    private startDragKnob(pointer: Phaser.Input.Pointer, dragX: number, dragY: number): void {
+        this.dragPosition = new Phaser.Math.Vector2(this.knob.x, this.knob.y);
+    }
+
+    private endDragKnob(pointer: Phaser.Input.Pointer, dragX: number, dragY: number): void {
+        this.dragPosition = new Phaser.Math.Vector2(this.knob.x, this.knob.y);
+    }
+
     private dragKnob(pointer: Phaser.Input.Pointer, dragX: number, dragY: number): void {
-        let newPosition = new Phaser.Math.Vector2(Phaser.Math.Clamp(dragX, this.start.x, this.end.x), Phaser.Math.Clamp(dragY, this.start.y, this.end.y));
-        this.knob.setPosition(newPosition.x, newPosition.y);
-        this.updateValue(newPosition);
+        let addedPosition = new Phaser.Math.Vector2(Phaser.Math.Clamp(dragX*this.dragSpeed + this.dragPosition.x, this.start.x, this.end.x), Phaser.Math.Clamp((dragY*this.dragSpeed + this.dragPosition.y)*this.dragSpeed, this.start.y, this.end.y));
+        this.knob.setPosition(addedPosition.x, addedPosition.y);
+        this.updateValue(addedPosition);
     }
 
     public enterRestState(): void {

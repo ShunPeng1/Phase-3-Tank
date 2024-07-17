@@ -6,6 +6,7 @@ import UiImageButton from "../../ultilities/ui/UiImageButton";
 import UiImage from "../../ultilities/ui/UiImage";
 import BlackUiImage from "./BlackUiImage";
 import UiImageSlider from "../../ultilities/ui/UiImageSlider";
+import MusicBarUi from "./MusicSliderUi";
 
 class GameUi extends GameObjects.Graphics {
     private pauseController : PauseController;
@@ -72,6 +73,8 @@ class GameUi extends GameObjects.Graphics {
         panel.setScale(0.5);
         this.pauseUi.add(panel, "Center");
 
+        const pauseText = this.scene.add.text(0, 0, 'PAUSED', { fontFamily: 'bold Arial', fontSize: 120, color: '#ffffff' });
+        panel.add(pauseText, "TopCenter", 0, -200);
 
         // Set up the home button
         const homeButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-red-square');
@@ -119,18 +122,11 @@ class GameUi extends GameObjects.Graphics {
         TweenUtilities.applyScaleTweens(resumeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, resumeButton.scaleX, resumeButton.scaleY, 1.1, 100);
 
 
-        const musicSlider = new UiImageSlider(this.scene, 0, 0, 'slim-slider-frame', new Phaser.Math.Vector2(-550, 0), new Phaser.Math.Vector2(550, 0), new UiImage(this.scene, 0, 0, 'slim-slider-red-button'), true);
-        musicSlider.setScale(0.7);
-        panel.add(musicSlider, "BottomCenter", 0, -500);
+        let musicBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-music-blank', 'icon-large-music-off-blank');
+        panel.add(musicBarUi, "BottomCenter", 0, -700);
 
-        const musicSliderBackground = new UiImage(this.scene, 0, 0, 'slim-slider-background');
-        musicSlider.add(musicSliderBackground, "Center");
-        musicSlider.sendToBack(musicSliderBackground);
-
-        musicSlider.on(UiImageSlider.VALUE_CHANGED_EVENT, (oldValue: number, newValue: number) => {
-            console.log("Music volume changed to", newValue);
-        });
-
+        let soundBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-audio-blank', 'icon-large-audio-off-blank');
+        panel.add(soundBarUi, "BottomCenter", 0, -1000);
 
 
 

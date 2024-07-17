@@ -50,6 +50,11 @@ class UiImage extends UiContainer implements IUiHoverable, Phaser.GameObjects.Co
         return this;
     }
 
+    public setTexture(key: string, frame?: string | number): this {
+        this.image.setTexture(key, frame);
+        return this;
+    }
+
     public setInteractive(hitArea?: Phaser.Types.Input.InputConfiguration | any, callback?: Phaser.Types.Input.HitAreaCallback, dropZone?: boolean): this {
         this.hitArea.setInteractive(hitArea, callback, dropZone);
 
