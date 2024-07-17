@@ -61,16 +61,16 @@ class BootScene extends Phaser.Scene {
         this.anims.create({
             key: 'explosion', // The key to reference this animation
             frames: [
-                { key: 'explosion_01' },
-                { key: 'explosion_02' },
-                { key: 'explosion_03' },
-                { key: 'explosion_04' },
-                { key: 'explosion_05' },
-                { key: 'explosion_06' },
-                { key: 'explosion_07' },
-                { key: 'explosion_08' }
+                { key: 'explosion-01' },
+                { key: 'explosion-02' },
+                { key: 'explosion-03' },
+                { key: 'explosion-04' },
+                { key: 'explosion-05' },
+                { key: 'explosion-06' },
+                { key: 'explosion-07' },
+                { key: 'explosion-08' }
             ],
-            frameRate: 10, // Number of frames per second
+            frameRate: 12, // Number of frames per second
             repeat: 0 // Set to -1 for infinite loop, 0 for no loop
         });
 
@@ -81,7 +81,7 @@ class BootScene extends Phaser.Scene {
                 { key: 'flash-a-02' },
                 { key: 'flash-a-03' }
             ],
-            frameRate: 10, // Number of frames per second
+            frameRate: 12, // Number of frames per second
             repeat: 0 // Set to -1 for infinite loop, 0 for no loop
         });
     }

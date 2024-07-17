@@ -167,7 +167,7 @@ class GameScene extends Phaser.Scene {
         if (bullet instanceof Bullet) {
             if (tile instanceof Phaser.Tilemaps.Tile) {
                 if (tile.properties.collide) {
-                    bullet.destroy();
+                    bullet.explode();
                 }
             }
         }
@@ -175,20 +175,20 @@ class GameScene extends Phaser.Scene {
 
     private bulletHitObstacles(bullet: Bullet |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody, obstacle: Obstacle |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void {
         if (bullet instanceof Bullet) {
-            bullet.destroy();
+            bullet.explode();
         }
     }
 
     private enemyBulletHitPlayer(bullet: Bullet |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody, player: Player |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void {
-        if (player instanceof Player) {
-            bullet.destroy();
+        if (player instanceof Player && bullet instanceof Bullet) {
+            bullet.explode();
             player.updateHealth();
         }
     }
 
     private playerBulletHitEnemy(bullet : Bullet |  Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody, enemy: Enemy | Phaser.Tilemaps.Tile | Phaser.Types.Physics.Arcade.GameObjectWithBody): void {
-        if (enemy instanceof Enemy) {
-            bullet.destroy();
+        if (enemy instanceof Enemy && bullet instanceof Bullet) {
+            bullet.explode();
             enemy.updateHealth();
         }
     }
