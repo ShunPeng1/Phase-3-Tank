@@ -67,10 +67,16 @@ class Bullet extends Phaser.GameObjects.Image implements IPausable {
         this.explosionSprite.on('animationcomplete', () => {
             this.explosionSprite?.destroy();
             this.explosionSprite = null; // Ensure reference is cleared after destruction
+        
+            
+            this.destroy();
         });
 
+        this.setVisible(false);
 
-        this.destroy();
+        this.originalVelocity = new Phaser.Math.Vector2(0, 0);
+        this.body.setVelocity(0, 0);
+
     }
 }
 
