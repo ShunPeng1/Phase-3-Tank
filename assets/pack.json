@@ -49,6 +49,26 @@
       },
       {
         "type": "image",
+        "key": "skull",
+        "url": "./assets/sprites/skull.png"
+      },
+      {
+        "type": "image",
+        "key": "red-target",
+        "url": "./assets/sprites/red-target.png"
+      },
+      {
+        "type": "image",
+        "key": "mouse-cursor",
+        "url": "./assets/sprites/mouse-cursor.png"
+      },
+      {
+        "type": "image",
+        "key": "winner-winner-chicken-dinner",
+        "url": "./assets/sprites/winner-winner-chicken-dinner.png"
+      },
+      {
+        "type": "image",
         "key": "tireTrack",
         "url": "./assets/sprites/tire-track.png"
       },
@@ -1496,6 +1516,121 @@
         "type": "image",
         "key": "splash-art",
         "url": "./assets/images/splash-art.jpg"
+      },
+      {
+        "type": "audio",
+        "key": "age-of-war-theme-song",
+        "url": "./assets/audio/age-of-war-theme-song.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "gun-1-1",
+        "url": "./assets/audio/gun-1-1.wav"
+      },
+      {
+        "type": "audio",
+        "key": "gun-1-2",
+        "url": "./assets/audio/gun-1-2.wav"
+      },
+      {
+        "type": "audio",
+        "key": "gun-1-3",
+        "url": "./assets/audio/gun-1-3.wav"
+      },
+      {
+        "type": "audio",
+        "key": "gun-1-4",
+        "url": "./assets/audio/gun-1-4.wav"
+      },
+      {
+        "type": "audio",
+        "key": "gun-1-5",
+        "url": "./assets/audio/gun-1-5.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-01",
+        "url": "./assets/audio/small-explosion-01.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-02",
+        "url": "./assets/audio/small-explosion-02.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-03",
+        "url": "./assets/audio/small-explosion-03.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-04",
+        "url": "./assets/audio/small-explosion-04.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-05",
+        "url": "./assets/audio/small-explosion-05.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-06",
+        "url": "./assets/audio/small-explosion-06.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-07",
+        "url": "./assets/audio/small-explosion-07.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-08",
+        "url": "./assets/audio/small-explosion-08.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-09",
+        "url": "./assets/audio/small-explosion-09.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-10",
+        "url": "./assets/audio/small-explosion-10.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-11",
+        "url": "./assets/audio/small-explosion-11.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-12",
+        "url": "./assets/audio/small-explosion-12.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-13",
+        "url": "./assets/audio/small-explosion-13.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-14",
+        "url": "./assets/audio/small-explosion-14.wav"
+      },
+      {
+        "type": "audio",
+        "key": "small-explosion-15",
+        "url": "./assets/audio/small-explosion-15.wav"
+      },
+      {
+        "type": "audio",
+        "key": "button-down",
+        "url": "./assets/audio/button-down.wav"
+      },
+      {
+        "type": "audio",
+        "key": "button-up",
+        "url": "./assets/audio/button-up.wav"
       }
 
     ]
