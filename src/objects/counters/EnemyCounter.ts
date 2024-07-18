@@ -8,6 +8,7 @@ class EnemyCounter extends Phaser.Events.EventEmitter{
 
     public static readonly ENEMY_DESTROYED_EVENT = 'enemyDestroyed';
     public static readonly ENEMY_COUNTER_KEY = 'enemyCounter';
+    public static readonly PLAYER_DIED_EVENT = 'playerDied';
     
     constructor(enemies: Enemy[]){
         super();

@@ -236,6 +236,84 @@ class GameUi extends GameObjects.Graphics {
     }
 
 
+    private createLoseUi() : void {
+        this.loseUi = new UiContainer(this.scene, 0, 0);
+        this.loseUi.setSize(this.scene.scale.width, this.scene.scale.height);
+        this.loseUi.setPosition(this.scene.scale.width/2, this.scene.scale.height/2);
+        this.loseUi.setDepth(1000);
+
+        const panel = new UiImage(this.scene, 0, 0, 'box-white-outline-rounded');
+        panel.setScale(0.5);
+        this.loseUi.add(panel, "Center");
+
+        const loseText = this.scene.add.text(0, 0, 'DEFEATED', { fontFamily: 'bold Arial', fontSize: 200, color: '#612221' });
+        panel.add(loseText, "TopCenter", 0, -200);
+
+        let scoreCounter = this.scene.data.get(ScoreCounter.SCORE_COUNTER_KEY) as ScoreCounter;
+
+        const scoreText = this.scene.add.text(0, 0, `Score: 0`, { fontFamily: 'bold Arial', fontSize: 140, color: '#ffffff' });
+        panel.add(scoreText, "Center", 0, -200);
+
+        scoreCounter.on(ScoreCounter.SCORE_CHANGE_EVENT, (fromScore : number, toScore : number) => {
+            scoreText.setText(`Score: ${toScore}`);
+        });
+
+        const highScoreText = this.scene.add.text(0, 0, `High Score: ${scoreCounter.loadHighScore()}`, { fontFamily: 'bold Arial', fontSize: 140, color: '#ffffff' });
+        panel.add(highScoreText, "Center", 0, 100);
+
+        scoreCounter.on(ScoreCounter.HIGH_SCORE_CHANGE_EVENT, (highScore : number) => {
+            highScoreText.setText(`High Score: ${highScore}`);
+        });
+
+
+        // Set up the home button
+        const homeButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-red-square');
+        homeButton.setScale(0.8);
+        panel.add(homeButton, "BottomCenter", -350, -100);
+
+        const homeIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-home');
+        homeIcon.setScale(1.2);
+        homeButton.add(homeIcon, "Center");
+
+        homeButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.scene.time.delayedCall(700, () => this.scene.scene.start('MenuScene'));
+            this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
+        });
+        TweenUtilities.applyTintTweens(homeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(homeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, homeButton.scaleX, homeButton.scaleY, 1.1, 100);
+        homeButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+
+
+        // Set up the settings button
+        const restartButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-blue-square');
+        restartButton.setScale(0.8);
+        panel.add(restartButton, "BottomCenter", 350, -100); // Swapped position to BottomLeft
+
+        const restartIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-return');
+        restartIcon.setScale(1.2);
+        restartButton.add(restartIcon, "Center");
+
+        restartButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.scene.time.delayedCall(700, () => this.scene.scene.start('GameScene'));
+            this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
+        });
+        TweenUtilities.applyTintTweens(restartButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(restartButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, restartButton.scaleX, restartButton.scaleY, 1.1, 100);
+        restartButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+
+        let enemyCounter = this.scene.data.get(EnemyCounter.ENEMY_COUNTER_KEY) as EnemyCounter;
+        enemyCounter.on(EnemyCounter.PLAYER_DIED_EVENT, () => {
+            this.showLoseUi();
+        });
+
+        this.loseUi.setVisible(false);
+    }
+
+
     private createOverlayUi() {
         let overlayUi = new UiContainer(this.scene, 0, 0);
         overlayUi.setSize(this.scene.scale.width, this.scene.scale.height);
@@ -311,16 +389,66 @@ class GameUi extends GameObjects.Graphics {
         this.blackBackground.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
     }
 
-    private showSettingUi() {
-        //this.settingUi.setVisible(true);
-        this.pauseUi.setVisible(true);
-    }
 
     private showLoseUi() {
-        //this.loseUi.setVisible(true);
+    
+        let youDiedText = this.scene.add.text(this.scene.scale.width/2,this.scene.scale.height/2,  'YOU DIED', {
+            fontFamily: '"Times New Roman", Times, serif',
+            fontSize: '74px',
+            color: '#612221',
+            fontStyle: 'bold'
+        }).setOrigin(0.5).setAlpha(0).setDepth(1000).setScrollFactor(0);
+        //this.overlayUi.add(youDiedText, "Center");
+        
+        let blackBanner = this.scene.add.image(this.scene.scale.width/2,this.scene.scale.height/2, 'black')
+        blackBanner.setDisplaySize(this.scene.scale.width, 300);
+        blackBanner.setDepth(999);
+        blackBanner.setAlpha(0);
+        blackBanner.setScrollFactor(0);
+        //this.overlayUi.add(blackBanner, "Center");
+        
+
+        this.blackBackground.emit(BlackUiImage.BLACK_UI_IMAGE_ENABLE_EVENT);
+        
+
+
+        this.scene.tweens.chain({
+            tweens: [
+                {
+                    targets: [youDiedText, blackBanner],
+                    alpha: { from: 0, to: 1 },
+                    ease: Phaser.Math.Easing.Back.Out,
+                    duration: 200,
+                    hold: 2000, // Hold the full alpha for 2 seconds
+                },
+                {
+                    targets: [ youDiedText, blackBanner],
+                    alpha: { from: 1, to: 0 },
+                    ease:  Phaser.Math.Easing.Linear,
+                    duration: 1000,
+                }
+            ],
+
+            
+            onComplete: () => {
+                // Once the tween is complete, make the winUi visible
+                this.loseUi.setVisible(true);
+                youDiedText.destroy();
+                blackBanner.destroy();
+
+                this.overlayUi.setVisible(false);
+                this.pauseController.setObjectFromScene(this.scene);
+                this.pauseController.pause();
+            }
+        });
+
+
         this.playUi.setVisible(false);
+        
     }
 
+
+    
     private showWinUi() {
         
         let winnerImage = new UiImage(this.scene, 0, 0, 'winner-winner-chicken-dinner');
@@ -364,6 +492,7 @@ class GameUi extends GameObjects.Graphics {
         this.playUi.setVisible(false);
         
     }
+
 
 }
 

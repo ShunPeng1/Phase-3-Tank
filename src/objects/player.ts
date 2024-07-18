@@ -1,5 +1,6 @@
 import AudioController from '../ultilities/audio/AudioController';
 import Bullet from './Bullet';
+import EnemyCounter from './counters/EnemyCounter';
 import TireTrack from './TireTrack';
 
 
@@ -170,8 +171,8 @@ class Player extends Phaser.GameObjects.Image implements IPausable{
         this.lifeBar.destroy();
         this.tireTracks.destroy();
 
-        this.scene.input.off('pointermove', this.handleBarrelRotation);
-        this.scene.input.off('pointerdown', this.handleShooting);
+        //this.scene.input.off('pointermove', this.handleBarrelRotation);
+        //this.scene.input.off('pointerdown', this.handleShooting);
     
         // Call the parent destroy method or additional cleanup if necessary
         super.destroy();
@@ -213,13 +214,17 @@ class Player extends Phaser.GameObjects.Image implements IPausable{
     }
 
     private handleBarrelRotation = (pointer: Phaser.Input.Pointer) => {
+        if (!this.active){
+            return;
+        }
+
         const worldPoint = pointer.positionToCamera(this.scene.cameras.main) as Phaser.Math.Vector2;
         this.barrel.rotation = Phaser.Math.Angle.Between(this.barrel.x, this.barrel.y, worldPoint.x, worldPoint.y) + Math.PI / 2;
     };
     
     
     private handleShooting(pointer: Phaser.Input.Pointer): void {
-        if (!pointer.leftButtonDown()){
+        if (!this.active || !pointer.leftButtonDown()){
             return;
         }
         
@@ -279,7 +284,9 @@ class Player extends Phaser.GameObjects.Image implements IPausable{
         } else {
             this.health = 0;
             this.active = false;
-            this.scene.scene.start('MenuScene');
+
+            let enemyCounter = this.scene.data.get(EnemyCounter.ENEMY_COUNTER_KEY) as EnemyCounter;
+            enemyCounter.emit(EnemyCounter.PLAYER_DIED_EVENT);
         }
     }
 }
