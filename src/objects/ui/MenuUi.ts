@@ -5,9 +5,12 @@ import UiContainer from "../../ultilities/ui/UiContainer";
 import UiImageButton from "../../ultilities/ui/UiImageButton";
 import UiImage from "../../ultilities/ui/UiImage";
 import BlackUiImage from "./BlackUiImage";
+import AudioController from "../../ultilities/audio/AudioController";
 
 class MenuUi extends GameObjects.Graphics {
-    
+    private audioController: AudioController;
+
+
     private menuUi : UiContainer;
     private settingUi : UiContainer;
 
@@ -18,6 +21,8 @@ class MenuUi extends GameObjects.Graphics {
         super(scene);
            
         scene.add.existing(this);
+
+        this.audioController = this.scene.data.get(AudioController.AUDIO_CONTROLLER_KEY) as AudioController;
 
         this.createPlayUi();
        
@@ -76,9 +81,17 @@ class MenuUi extends GameObjects.Graphics {
         // Assuming TweenUtilities and UiImageButton are part of your project's utilities
         TweenUtilities.applyTintTweens(playButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(playButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, playButton.scaleX, playButton.scaleY, 1.1, 100);
-        
+        playButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+
+
         TweenUtilities.applyTintTweens(settingsButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(settingsButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, settingsButton.scaleX, settingsButton.scaleY, 1.1, 100);
+        settingsButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+    
     }
 
     private showSettingsUi() {

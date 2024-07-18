@@ -1621,6 +1621,16 @@
         "type": "audio",
         "key": "small-explosion-15",
         "url": "./assets/audio/small-explosion-15.wav"
+      },
+      {
+        "type": "audio",
+        "key": "button-down",
+        "url": "./assets/audio/button-down.wav"
+      },
+      {
+        "type": "audio",
+        "key": "button-up",
+        "url": "./assets/audio/button-up.wav"
       }
 
     ]

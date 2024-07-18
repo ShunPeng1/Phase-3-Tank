@@ -11,16 +11,17 @@ import CursorChanger from "../CursorChanger";
 import EnemyCounter from "../counters/EnemyCounter";
 import Enemy from "../Enemy";
 import ScoreCounter from "../counters/ScoreCounter";
+import AudioController from "../../ultilities/audio/AudioController";
 
 class GameUi extends GameObjects.Graphics {
     private pauseController : PauseController;
+    private audioController : AudioController;
     
     private playUi : UiContainer;
     private pauseUi : UiContainer;
     
     private overlayUi : UiContainer;
-    //private settingUi : UiContainer;
-    //private loseUi : UiContainer;
+    private loseUi : UiContainer;
     private winUi : UiContainer;
 
     // Black background to cover the game when the pause menu is shown
@@ -33,11 +34,14 @@ class GameUi extends GameObjects.Graphics {
            
         scene.add.existing(this);
 
+        this.audioController = this.scene.data.get(AudioController.AUDIO_CONTROLLER_KEY) as AudioController;
+
         this.createPlayUi();
        
         this.createPauseUi();
         this.createOverlayUi();
         this.createWinUi();
+        this.createLoseUi();
 
         this.createBlackImages(scene);        
 
@@ -67,6 +71,10 @@ class GameUi extends GameObjects.Graphics {
         pauseButton.on(UiImageButton.BUTTON_UP_EVENT, this.showPauseUi, this);
         TweenUtilities.applyTintTweens(pauseButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(pauseButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, pauseButton.scaleX, pauseButton.scaleY, 1.1, 100);        
+        pauseButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+       
 
         this.playUi.add(pauseButton, "TopLeft", -30, -30);
 
@@ -103,6 +111,11 @@ class GameUi extends GameObjects.Graphics {
         });
         TweenUtilities.applyTintTweens(homeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(homeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, homeButton.scaleX, homeButton.scaleY, 1.1, 100);
+        homeButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+
+
 
         // Set up the settings button
         const restartButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-blue-square');
@@ -119,6 +132,10 @@ class GameUi extends GameObjects.Graphics {
         });
         TweenUtilities.applyTintTweens(restartButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(restartButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, restartButton.scaleX, restartButton.scaleY, 1.1, 100);
+        restartButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+
 
         // Set up the resume button
         const resumeButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-green-square');
@@ -132,7 +149,9 @@ class GameUi extends GameObjects.Graphics {
         resumeButton.on(UiImageButton.BUTTON_UP_EVENT, this.hidePauseUi, this);
         TweenUtilities.applyTintTweens(resumeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(resumeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, resumeButton.scaleX, resumeButton.scaleY, 1.1, 100);
-
+        resumeButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
 
         let musicBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-music-blank', 'icon-large-music-off-blank', true);
         panel.add(musicBarUi, "BottomCenter", 0, -700);
@@ -189,6 +208,10 @@ class GameUi extends GameObjects.Graphics {
         });
         TweenUtilities.applyTintTweens(homeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(homeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, homeButton.scaleX, homeButton.scaleY, 1.1, 100);
+        homeButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
+
 
         // Set up the settings button
         const restartButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-blue-square');
@@ -205,6 +228,9 @@ class GameUi extends GameObjects.Graphics {
         });
         TweenUtilities.applyTintTweens(restartButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
         TweenUtilities.applyScaleTweens(restartButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, restartButton.scaleX, restartButton.scaleY, 1.1, 100);
+        restartButton.on(UiImageButton.BUTTON_DOWN_EVENT, () => {
+            this.audioController.playSound('button-down');
+        });
 
         this.winUi.setVisible(false);
     }
