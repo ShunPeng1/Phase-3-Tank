@@ -18,9 +18,13 @@ class AudioController {
         this.scene.data.set('audioController', this);
 
         // Initial configurations for music and sound
-        AudioController.musicConfig = { loop: true, volume: 1.0 };
-        AudioController.soundConfig = { volume: 1.0 };
-
+        if (!AudioController.musicConfig) {
+            AudioController.musicConfig = { loop: true, volume: 1.0 };
+        }
+        if (!AudioController.soundConfig) {
+            AudioController.soundConfig = { volume: 1.0 };
+        }
+        
         this.scene.events.on('shutdown', () => {
             const audioController = this.scene.data.get('audioController') as AudioController;
             audioController.stopAll();

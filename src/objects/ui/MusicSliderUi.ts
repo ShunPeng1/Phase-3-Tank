@@ -62,15 +62,14 @@ class MusicBarUi extends UiContainer {
                 let volume = audioController.getMusicVolume();
                 audioController.adjustMusicVolume(volume === 0 ? 1 : 0);    
                 musicButton.setTexture(volume === 0 ? this.offTexture : this.onTexture);
+                this.slider.setValue(audioController.getMusicVolume());
             }
             else{
                 let volume = audioController.getSoundVolume();
                 audioController.adjustSoundVolume(volume === 0 ? 1 : 0);
                 musicButton.setTexture(volume === 0 ? this.offTexture : this.onTexture);
+                this.slider.setValue(audioController.getSoundVolume());
             }
-
-            // Change the button texture based on the music state
-            this.slider.setValue(audioController.getMusicVolume());
         });
 
         TweenUtilities.applyTintTweens(musicButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
@@ -79,9 +78,15 @@ class MusicBarUi extends UiContainer {
 
 
         // Set the initial state of the music button
-        musicButton.setTexture(audioController.getMusicVolume() === 0 ? this.offTexture : this.onTexture);
-        this.slider.setValue(audioController.getMusicVolume());
-
+        if (this.isMusicOrSound) {
+            musicButton.setTexture(audioController.getMusicVolume() === 0 ? this.offTexture : this.onTexture);
+            this.slider.setValue(audioController.getMusicVolume());
+        }
+        else{
+            musicButton.setTexture(audioController.getSoundVolume() === 0 ? this.offTexture : this.onTexture);
+            this.slider.setValue(audioController.getSoundVolume());
+        
+        }
 
 
     }
