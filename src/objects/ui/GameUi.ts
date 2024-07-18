@@ -27,6 +27,13 @@ class GameUi extends GameObjects.Graphics {
     // Black background to cover the game when the pause menu is shown
     private blackBackground : BlackUiImage;
     private blackSceneTransition : BlackUiImage;
+
+
+    public static readonly PAUSE_UI_SHOW_EVENT = 'pauseUiShow';
+    public static readonly PAUSE_UI_HIDE_EVENT = 'pauseUiHide';
+
+    public static readonly WIN_UI_SHOW_EVENT = 'winUiShow';
+    public static readonly LOSE_UI_SHOW_EVENT = 'loseUiShow';
     
     
     constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -86,7 +93,7 @@ class GameUi extends GameObjects.Graphics {
     private createPauseUi() {
         this.pauseUi = new UiContainer(this.scene, 0, 0);
         this.pauseUi.setSize(this.scene.scale.width, this.scene.scale.height);
-        this.pauseUi.setPosition(this.scene.scale.width/2, this.scene.scale.height/2);
+        this.pauseUi.setPosition(this.scene.scale.width/2, this.scene.scale.height*3/2);
         this.pauseUi.setDepth(1000);
 
         const panel = new UiImage(this.scene, 0, 0, 'box-white-outline-rounded');
@@ -160,6 +167,7 @@ class GameUi extends GameObjects.Graphics {
         panel.add(soundBarUi, "BottomCenter", 0, -1000);
 
 
+        TweenUtilities.applyPositionTweens(this.pauseUi, GameUi.PAUSE_UI_SHOW_EVENT, GameUi.PAUSE_UI_HIDE_EVENT, this.scene.scale.width/2, this.scene.scale.height*3/2, 0, -this.scene.scale.height, 300);
 
     }
 
@@ -350,7 +358,6 @@ class GameUi extends GameObjects.Graphics {
 
     private initializeSceneLoad() {
         this.playUi.setVisible(true);
-        this.pauseUi.setVisible(false);
         // this.settingUi.setVisible(false);
         // this.loseUi.setVisible(false);
         // this.winUi.setVisible(false);
@@ -370,9 +377,10 @@ class GameUi extends GameObjects.Graphics {
     
     private showPauseUi() {
         // Ensure the pause UI and the black background are initially invisible
-        this.pauseUi.setVisible(true);
+        
         this.playUi.setVisible(false);
 
+        this.pauseUi.emit(GameUi.PAUSE_UI_SHOW_EVENT);
         
         this.pauseController.setObjectFromScene(this.scene);
         this.pauseController.pause();
@@ -381,8 +389,9 @@ class GameUi extends GameObjects.Graphics {
     }
 
     private hidePauseUi() {
-        this.pauseUi.setVisible(false);
         this.playUi.setVisible(true);
+
+        this.pauseUi.emit(GameUi.PAUSE_UI_HIDE_EVENT);
 
         this.pauseController.resume();
 

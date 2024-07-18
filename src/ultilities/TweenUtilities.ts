@@ -1,7 +1,76 @@
 import { GameObjects } from "phaser";
 
 class TweenUtilities {
-
+    public static applyPositionTweens(gameObject: Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Transform, eventOnString: string | string[], eventOffString: string | string[], defaultX: number = gameObject.x, defaultY: number = gameObject.y, moveXBy: number = 10, moveYBy: number = 10, duration: number = 100): void {
+        // Move position on event trigger
+        let isMoved = false;
+        let moveTween: Phaser.Tweens.Tween | null = null;
+        let returnTween: Phaser.Tweens.Tween | null = null;
+    
+        let defaultPosition: Phaser.Math.Vector2;
+    
+        const moveToNewPosition = () => {
+            if (returnTween) {
+                returnTween.complete();
+            }
+    
+            defaultPosition = new Phaser.Math.Vector2(defaultX, defaultY);
+            const endX = defaultPosition.x + moveXBy;
+            const endY = defaultPosition.y + moveYBy;
+            isMoved = true;
+    
+            moveTween = gameObject.scene.tweens.add({
+                targets: gameObject,
+                x: endX,
+                y: endY,
+                duration: duration,
+                ease: 'Linear',
+                onComplete: () => {
+                    gameObject.setPosition(endX, endY);
+                    moveTween = null;
+                }
+            });
+        };
+    
+        const returnToOriginalPosition = () => {
+            if (!isMoved) return;
+    
+            if (moveTween) {
+                moveTween.stop();
+            }
+    
+            isMoved = false;
+    
+            returnTween = gameObject.scene.tweens.add({
+                targets: gameObject,
+                x: defaultPosition.x,
+                y: defaultPosition.y,
+                duration: duration,
+                ease: 'Linear',
+                onComplete: () => {
+                    gameObject.setPosition(defaultPosition.x, defaultPosition.y);
+                    returnTween = null;
+                }
+            });
+        };
+    
+        if (typeof eventOnString === 'string') {
+            eventOnString = [eventOnString];
+        }
+    
+        eventOnString.forEach((eventString) => {
+            gameObject.on(eventString, moveToNewPosition);
+        });
+    
+        if (typeof eventOffString === 'string') {
+            eventOffString = [eventOffString];
+        }
+    
+        eventOffString.forEach(eventString => {
+            gameObject.on(eventString, returnToOriginalPosition);
+        });
+    }
+    
     public static applyScaleTweens(gameObject: Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Transform, eventOnString : string | string[], eventOffString : string | string[], defaultScaleX : number = gameObject.scaleX, defaultScaleY : number = gameObject.scaleY, scaleDownFactor: number = 0.95, duration: number = 100): void {
         // Scale down on pointer down
         let isScaled = false;
