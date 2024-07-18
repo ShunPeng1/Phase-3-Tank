@@ -228,17 +228,19 @@ class GameUi extends GameObjects.Graphics {
         const enemyCounter = this.scene.data.get(EnemyCounter.ENEMY_COUNTER_KEY) as EnemyCounter;
         enemyCounter.on(EnemyCounter.ENEMY_DESTROYED_EVENT, (enemies : Enemy[], maxEnemies : number) => {
             counterText.setText(`${maxEnemies - enemies.length}/${maxEnemies}`);
-        
-            if (enemies.length === 0) {
-                
-            }
-            let scoreCounter = this.scene.data.get(ScoreCounter.SCORE_COUNTER_KEY) as ScoreCounter;
-            scoreCounter.saveHighScore();
-            this.showWinUi();
+            this.checkWin(enemies);
         });
 
         
+        let scoreCounter = this.scene.data.get(ScoreCounter.SCORE_COUNTER_KEY) as ScoreCounter;
 
+        const scoreText = this.scene.add.text(0, 0, `Score: 0`, { fontFamily: 'bold Arial', fontSize: 60, color: '#ffffff' });
+        overlayUi.add(scoreText, "TopRight", 130, -40);
+        scoreText.setOrigin(1, 0); // Set origin to the top right
+
+        scoreCounter.on(ScoreCounter.SCORE_CHANGE_EVENT, (fromScore : number, toScore : number) => {
+            scoreText.setText(`Score: ${toScore}`);
+        });
 
     }
 
@@ -253,6 +255,14 @@ class GameUi extends GameObjects.Graphics {
 
     }
 
+    private checkWin(enemies : Enemy[]){
+        if (enemies.length === 0) {
+                
+            let scoreCounter = this.scene.data.get(ScoreCounter.SCORE_COUNTER_KEY) as ScoreCounter;
+            scoreCounter.saveHighScore();
+            this.showWinUi();
+        }
+    }
     
     private showPauseUi() {
         // Ensure the pause UI and the black background are initially invisible
@@ -317,11 +327,16 @@ class GameUi extends GameObjects.Graphics {
                 // Once the tween is complete, make the winUi visible
                 this.winUi.setVisible(true);
                 winnerImage.destroy();
+
+                this.overlayUi.setVisible(false);
+                this.pauseController.setObjectFromScene(this.scene);
+                this.pauseController.pause();
             }
         });
 
 
         this.playUi.setVisible(false);
+        
     }
 
 }
