@@ -28,6 +28,7 @@ class GameUi extends GameObjects.Graphics {
     private blackBackground : BlackUiImage;
     private blackSceneTransition : BlackUiImage;
 
+    private hasEndGame : boolean = false;
 
     public static readonly PAUSE_UI_SHOW_EVENT = 'pauseUiShow';
     public static readonly PAUSE_UI_HIDE_EVENT = 'pauseUiHide';
@@ -174,7 +175,7 @@ class GameUi extends GameObjects.Graphics {
     private createWinUi() : void {
         this.winUi = new UiContainer(this.scene, 0, 0);
         this.winUi.setSize(this.scene.scale.width, this.scene.scale.height);
-        this.winUi.setPosition(this.scene.scale.width/2, this.scene.scale.height/2);
+        this.winUi.setPosition(this.scene.scale.width/2, this.scene.scale.height*3/2);
         this.winUi.setDepth(1000);
 
         const panel = new UiImage(this.scene, 0, 0, 'box-white-outline-rounded');
@@ -240,14 +241,14 @@ class GameUi extends GameObjects.Graphics {
             this.audioController.playSound('button-down');
         });
 
-        this.winUi.setVisible(false);
+        TweenUtilities.applyPositionTweens(this.winUi, GameUi.WIN_UI_SHOW_EVENT, [], this.scene.scale.width/2, this.scene.scale.height*3/2, 0, -this.scene.scale.height, 300);
     }
 
 
     private createLoseUi() : void {
         this.loseUi = new UiContainer(this.scene, 0, 0);
         this.loseUi.setSize(this.scene.scale.width, this.scene.scale.height);
-        this.loseUi.setPosition(this.scene.scale.width/2, this.scene.scale.height/2);
+        this.loseUi.setPosition(this.scene.scale.width/2, this.scene.scale.height*3/2);
         this.loseUi.setDepth(1000);
 
         const panel = new UiImage(this.scene, 0, 0, 'box-white-outline-rounded');
@@ -318,7 +319,8 @@ class GameUi extends GameObjects.Graphics {
             this.showLoseUi();
         });
 
-        this.loseUi.setVisible(false);
+
+        TweenUtilities.applyPositionTweens(this.loseUi, GameUi.LOSE_UI_SHOW_EVENT, [], this.scene.scale.width/2, this.scene.scale.height*3/2, 0, -this.scene.scale.height, 300);
     }
 
 
@@ -358,9 +360,6 @@ class GameUi extends GameObjects.Graphics {
 
     private initializeSceneLoad() {
         this.playUi.setVisible(true);
-        // this.settingUi.setVisible(false);
-        // this.loseUi.setVisible(false);
-        // this.winUi.setVisible(false);
 
         this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_ENABLE_EVENT);
 
@@ -400,6 +399,11 @@ class GameUi extends GameObjects.Graphics {
 
 
     private showLoseUi() {
+        if (this.hasEndGame) {
+            return;
+        }
+
+        this.hasEndGame = true;
     
         let youDiedText = this.scene.add.text(this.scene.scale.width/2,this.scene.scale.height/2,  'YOU DIED', {
             fontFamily: '"Times New Roman", Times, serif',
@@ -441,13 +445,15 @@ class GameUi extends GameObjects.Graphics {
             
             onComplete: () => {
                 // Once the tween is complete, make the winUi visible
-                this.loseUi.setVisible(true);
-                youDiedText.destroy();
-                blackBanner.destroy();
+                
 
                 this.overlayUi.setVisible(false);
                 this.pauseController.setObjectFromScene(this.scene);
                 this.pauseController.pause();
+
+                this.loseUi.emit(GameUi.LOSE_UI_SHOW_EVENT);
+                youDiedText.destroy();
+                blackBanner.destroy();
             }
         });
 
@@ -459,6 +465,11 @@ class GameUi extends GameObjects.Graphics {
 
     
     private showWinUi() {
+        if (this.hasEndGame) {
+            return;
+        }
+
+        this.hasEndGame = true;
         
         let winnerImage = new UiImage(this.scene, 0, 0, 'winner-winner-chicken-dinner');
         winnerImage.setScale(0);
@@ -487,13 +498,15 @@ class GameUi extends GameObjects.Graphics {
 
             
             onComplete: () => {
-                // Once the tween is complete, make the winUi visible
-                this.winUi.setVisible(true);
-                winnerImage.destroy();
-
+                
                 this.overlayUi.setVisible(false);
                 this.pauseController.setObjectFromScene(this.scene);
                 this.pauseController.pause();
+
+                // Once the tween is complete, make the winUi visible
+                this.winUi.emit(GameUi.WIN_UI_SHOW_EVENT);
+                winnerImage.destroy();
+
             }
         });
 
