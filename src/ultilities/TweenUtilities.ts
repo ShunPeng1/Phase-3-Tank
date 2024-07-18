@@ -235,7 +235,7 @@ class TweenUtilities {
                 duration: duration,
                 ease: 'Linear',
                 onUpdate: (tween) => {
-                    let color = Phaser.Display.Color.Interpolate.ColorWithColor(Phaser.Display.Color.ValueToColor(startTint), Phaser.Display.Color.ValueToColor(endTint), 100, tintToTween!.progress * 100);
+                    let color = Phaser.Display.Color.Interpolate.ColorWithColor(Phaser.Display.Color.ValueToColor(startTint), Phaser.Display.Color.ValueToColor(endTint), 100, tween!.progress * 100);
                     gameObject.setTint(color.r<<16 | color.g<<8 | color.b);
                 },
                 onComplete: () => {
@@ -263,8 +263,8 @@ class TweenUtilities {
                 tint: { from: endTint, to: startTint },
                 duration: duration,
                 ease: 'Linear',
-                onUpdate: () => {
-                    let color = Phaser.Display.Color.Interpolate.ColorWithColor(Phaser.Display.Color.ValueToColor(endTint), Phaser.Display.Color.ValueToColor(startTint), 100, tintBackTween!.progress * 100);
+                onUpdate: (tween) => {
+                    let color = Phaser.Display.Color.Interpolate.ColorWithColor(Phaser.Display.Color.ValueToColor(endTint), Phaser.Display.Color.ValueToColor(startTint), 100, tween!.progress * 100);
                     gameObject.setTint(color.r<<16 | color.g<<8 | color.b);
                 },
                 onComplete: () => {
