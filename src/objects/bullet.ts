@@ -1,3 +1,4 @@
+import AudioController from "../ultilities/audio/AudioController";
 
 
 class Bullet extends Phaser.GameObjects.Image implements IPausable {
@@ -6,8 +7,10 @@ class Bullet extends Phaser.GameObjects.Image implements IPausable {
     private bulletSpeed: number;
     private originalVelocity: Phaser.Math.Vector2;
     private explosionSprite: Phaser.GameObjects.Sprite | null; 
-
+    
     private isDestoyed : boolean = false;
+
+    private audioController: AudioController;
 
     constructor(aParams: IBulletConstructor) {
         super(aParams.scene, aParams.x, aParams.y, aParams.texture);
@@ -15,6 +18,12 @@ class Bullet extends Phaser.GameObjects.Image implements IPausable {
         this.rotation = aParams.rotation;
         this.initImage();
         this.scene.add.existing(this);
+
+
+        this.audioController = this.scene.data.get(AudioController.AUDIO_CONTROLLER_KEY) as AudioController;
+        let randomSounds = ['gun-1-1','gun-1-2','gun-1-3','gun-1-4','gun-1-5']
+        this.audioController.playSound(randomSounds[Math.floor(Math.random() * randomSounds.length)]);
+    
     }
 
     public pause(): void {
@@ -76,7 +85,9 @@ class Bullet extends Phaser.GameObjects.Image implements IPausable {
         this.setVisible(false); 
         this.body.enable = false;
 
-        
+        let randomSounds = ['small-explosion-01','small-explosion-02','small-explosion-03','small-explosion-04','small-explosion-05','small-explosion-06','small-explosion-07','small-explosion-08','small-explosion-09','small-explosion-10','small-explosion-11','small-explosion-12','small-explosion-13','small-explosion-14','small-explosion-15']
+        this.audioController.playSound(randomSounds[Math.floor(Math.random() * randomSounds.length)]);
+    
     }
 }
 
