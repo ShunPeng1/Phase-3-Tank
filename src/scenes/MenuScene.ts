@@ -23,6 +23,11 @@ class MenuScene extends Phaser.Scene {
 
         audioController.playMusic('age-of-war-theme-song');
 
+        //this.input.setDefaultCursor('url(assets/input/cursors/blue.cur), pointer');
+        //this.input.setDefaultCursor('url(assets/cursors/red-target.cur), pointer');
+
+
+
     }
 
     

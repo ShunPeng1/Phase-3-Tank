@@ -54,6 +54,16 @@
       },
       {
         "type": "image",
+        "key": "red-target",
+        "url": "./assets/sprites/red-target.png"
+      },
+      {
+        "type": "image",
+        "key": "mouse-cursor",
+        "url": "./assets/sprites/mouse-cursor.png"
+      },
+      {
+        "type": "image",
         "key": "tireTrack",
         "url": "./assets/sprites/tire-track.png"
       },

@@ -7,6 +7,7 @@ import UiImage from "../../ultilities/ui/UiImage";
 import BlackUiImage from "./BlackUiImage";
 import UiImageSlider from "../../ultilities/ui/UiImageSlider";
 import MusicBarUi from "./MusicSliderUi";
+import CursorChanger from "../CursorChanger";
 
 class GameUi extends GameObjects.Graphics {
     private pauseController : PauseController;
@@ -168,6 +169,7 @@ class GameUi extends GameObjects.Graphics {
         // this.winUi.setVisible(false);
 
         this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_ENABLE_EVENT);
+
     }
 
     
@@ -175,7 +177,6 @@ class GameUi extends GameObjects.Graphics {
         // Ensure the pause UI and the black background are initially invisible
         this.pauseUi.setVisible(true);
         this.playUi.setVisible(false);
-
 
         
         this.pauseController.setObjectFromScene(this.scene);
