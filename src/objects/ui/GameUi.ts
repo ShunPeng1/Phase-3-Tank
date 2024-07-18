@@ -122,10 +122,10 @@ class GameUi extends GameObjects.Graphics {
         TweenUtilities.applyScaleTweens(resumeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, resumeButton.scaleX, resumeButton.scaleY, 1.1, 100);
 
 
-        let musicBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-music-blank', 'icon-large-music-off-blank');
+        let musicBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-music-blank', 'icon-large-music-off-blank', true);
         panel.add(musicBarUi, "BottomCenter", 0, -700);
 
-        let soundBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-audio-blank', 'icon-large-audio-off-blank');
+        let soundBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-audio-blank', 'icon-large-audio-off-blank', false);
         panel.add(soundBarUi, "BottomCenter", 0, -1000);
 
 

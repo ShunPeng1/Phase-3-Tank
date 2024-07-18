@@ -6,8 +6,8 @@ class AudioController {
     private music: Phaser.Sound.BaseSound;
     private sounds: Phaser.Sound.BaseSound[] = [];
 
-    private musicConfig: Phaser.Types.Sound.SoundConfig;
-    private soundConfig: Phaser.Types.Sound.SoundConfig;
+    private static musicConfig: Phaser.Types.Sound.SoundConfig;
+    private static soundConfig: Phaser.Types.Sound.SoundConfig;
 
     public static readonly AUDIO_CONTROLLER_KEY = 'audioController';
 
@@ -18,22 +18,30 @@ class AudioController {
         this.scene.data.set('audioController', this);
 
         // Initial configurations for music and sound
-        this.musicConfig = { loop: true, volume: 0.5 };
-        this.soundConfig = { volume: 1.0 };
+        AudioController.musicConfig = { loop: true, volume: 1.0 };
+        AudioController.soundConfig = { volume: 1.0 };
 
-    
+        this.scene.events.on('shutdown', () => {
+            const audioController = this.scene.data.get('audioController') as AudioController;
+            audioController.stopAll();
+        });
+
+        this.scene.events.on('destroy', () => {
+            const audioController = this.scene.data.get('audioController') as AudioController;
+            audioController.stopAll();
+        });
     }
 
     public adjustMusicVolume(volume: number): void {
-        this.musicConfig.volume = volume;
-        if (this.music.isPlaying) {
+        AudioController.musicConfig.volume = volume;
+        if (this.music && this.music.isPlaying) {
             (this.music as Phaser.Sound.WebAudioSound).setVolume(volume);
         }
     }
     
     
     public adjustSoundVolume(volume: number): void {
-        this.soundConfig.volume = volume;
+        AudioController.soundConfig.volume = volume;
         // Adjust the volume of all currently playing sounds
         this.sounds.forEach(sound => {
             if (sound.isPlaying) {
@@ -41,10 +49,26 @@ class AudioController {
             }
         });
     }
+
+    public getMusicVolume(): number {
+        if (!AudioController.musicConfig || !AudioController.musicConfig.volume) {
+            return 0;
+        }
+
+        return AudioController.musicConfig.volume;
+    }
+
+    public getSoundVolume(): number {
+        if (!AudioController.soundConfig || !AudioController.soundConfig.volume) {
+            return 0;
+        }
+
+        return AudioController.soundConfig.volume;
+    }
     
     public playSound(key: string): void {
         // Use the sound configuration for playing specific sound effects
-        const sound = this.scene.sound.add(key, this.soundConfig);
+        const sound = this.scene.sound.add(key, AudioController.soundConfig);
         sound.play();
         // Add the sound to the sounds array
         this.sounds.push(sound);
@@ -70,11 +94,29 @@ class AudioController {
 
     public playMusic(key : string): void {
         // Directly use the music instance since its configuration is already set
-        if (this.music.isPlaying) {
+        if (this.music && this.music.isPlaying) {
             this.music.stop();
         }
 
-        this.music = this.scene.sound.add(key, this.musicConfig);
+        this.music = this.scene.sound.add(key, AudioController.musicConfig);
+        this.music.play();
+    }
+
+    public stopAll(): void {
+        // Stop the music if it's playing
+        if (this.music && this.music.isPlaying) {
+            this.music.stop();
+        }
+    
+        // Stop all sounds
+        this.sounds.forEach(sound => {
+            if (sound.isPlaying) {
+                sound.stop();
+            }
+        });
+    
+        // Optionally clear the sounds array if you want to remove all references
+        this.sounds = [];
     }
 }
 

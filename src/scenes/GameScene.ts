@@ -28,6 +28,8 @@ class GameScene extends Phaser.Scene {
     init(): void {}
 
     create(): void {
+        let audioController = new AudioController(this);
+
         // create tilemap from tiled JSON
         this.map = this.make.tilemap({ key: 'levelMap' });
 
@@ -49,7 +51,6 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.layer);
         this.physics.add.collider(this.player, this.obstacles);
 
-        console.log(this.layer)
 
         // collider for bullets
         this.physics.add.overlap(
@@ -103,10 +104,9 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player);
 
 
-
-        let audioController = new AudioController(this);
         let gameUi = new GameUi(this, 0, 0);
 
+        audioController.playMusic('age-of-war-theme-song');
     }
 
     update(): void {

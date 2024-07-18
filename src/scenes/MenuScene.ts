@@ -16,9 +16,13 @@ class MenuScene extends Phaser.Scene {
     }
 
     create(): void {
+        
+        let audioController = new AudioController(this);
+
         let menuUi = new MenuUi(this);
 
-        let audioController = new AudioController(this);
+        audioController.playMusic('age-of-war-theme-song');
+
     }
 
     

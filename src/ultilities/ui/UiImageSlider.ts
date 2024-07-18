@@ -43,7 +43,8 @@ class UiImageSlider extends UiImage implements IUiClickable {
     public setValue(value: number): void {
         // Assuming value is a normalized scalar [0, 1] representing the slider's position from start to end
         const clampedValue = Phaser.Math.Clamp(value, 0, 1);
-        const newPosition = this.start.lerp(this.end, clampedValue);
+        let startPosition = this.start.clone();
+        const newPosition = startPosition.lerp(this.end, clampedValue);
         this.knob.setPosition(newPosition.x, newPosition.y);
         this.updateValue(newPosition);
     }
@@ -52,6 +53,9 @@ class UiImageSlider extends UiImage implements IUiClickable {
         // Calculate the new value based on the knob's position
         const totalDistance = this.start.distance(this.end);
         const currentDistance = this.start.distance(position);
+
+        if (totalDistance === 0) return;
+
         const newValue = currentDistance / totalDistance;
 
         if (newValue !== this.currentValue) {
