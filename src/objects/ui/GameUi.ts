@@ -10,6 +10,7 @@ import MusicBarUi from "./MusicSliderUi";
 import CursorChanger from "../CursorChanger";
 import EnemyCounter from "../counters/EnemyCounter";
 import Enemy from "../Enemy";
+import ScoreCounter from "../counters/ScoreCounter";
 
 class GameUi extends GameObjects.Graphics {
     private pauseController : PauseController;
@@ -20,7 +21,7 @@ class GameUi extends GameObjects.Graphics {
     private overlayUi : UiContainer;
     //private settingUi : UiContainer;
     //private loseUi : UiContainer;
-    //private winUi : UiContainer;
+    private winUi : UiContainer;
 
     // Black background to cover the game when the pause menu is shown
     private blackBackground : BlackUiImage;
@@ -36,12 +37,13 @@ class GameUi extends GameObjects.Graphics {
        
         this.createPauseUi();
         this.createOverlayUi();
+        this.createWinUi();
 
         this.createBlackImages(scene);        
 
         this.initializeSceneLoad();
     }
-
+    
 
     private createBlackImages(scene: Phaser.Scene) {
         this.blackBackground = new BlackUiImage(scene, 0, 0.4, 200);
@@ -103,20 +105,20 @@ class GameUi extends GameObjects.Graphics {
         TweenUtilities.applyScaleTweens(homeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, homeButton.scaleX, homeButton.scaleY, 1.1, 100);
 
         // Set up the settings button
-        const settingButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-blue-square');
-        settingButton.setScale(0.8);
-        panel.add(settingButton, "BottomCenter", 0, -100); // Swapped position to BottomLeft
+        const restartButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-blue-square');
+        restartButton.setScale(0.8);
+        panel.add(restartButton, "BottomCenter", 0, -100); // Swapped position to BottomLeft
 
-        const settingIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-return');
-        settingIcon.setScale(1.2);
-        settingButton.add(settingIcon, "Center");
+        const restartIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-return');
+        restartIcon.setScale(1.2);
+        restartButton.add(restartIcon, "Center");
 
-        settingButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+        restartButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
             this.scene.time.delayedCall(700, () => this.scene.scene.start('GameScene'));
             this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
         });
-        TweenUtilities.applyTintTweens(settingButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
-        TweenUtilities.applyScaleTweens(settingButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, settingButton.scaleX, settingButton.scaleY, 1.1, 100);
+        TweenUtilities.applyTintTweens(restartButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(restartButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, restartButton.scaleX, restartButton.scaleY, 1.1, 100);
 
         // Set up the resume button
         const resumeButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-green-square');
@@ -142,6 +144,72 @@ class GameUi extends GameObjects.Graphics {
 
     }
 
+    private createWinUi() : void {
+        this.winUi = new UiContainer(this.scene, 0, 0);
+        this.winUi.setSize(this.scene.scale.width, this.scene.scale.height);
+        this.winUi.setPosition(this.scene.scale.width/2, this.scene.scale.height/2);
+        this.winUi.setDepth(1000);
+
+        const panel = new UiImage(this.scene, 0, 0, 'box-white-outline-rounded');
+        panel.setScale(0.5);
+        this.winUi.add(panel, "Center");
+
+        const winText = this.scene.add.text(0, 0, 'VICTORY', { fontFamily: 'bold Arial', fontSize: 200, color: '#dbb337' });
+        panel.add(winText, "TopCenter", 0, -200);
+
+        let scoreCounter = this.scene.data.get(ScoreCounter.SCORE_COUNTER_KEY) as ScoreCounter;
+
+        const scoreText = this.scene.add.text(0, 0, `Score: 0`, { fontFamily: 'bold Arial', fontSize: 140, color: '#ffffff' });
+        panel.add(scoreText, "Center", 0, -200);
+
+        scoreCounter.on(ScoreCounter.SCORE_CHANGE_EVENT, (fromScore : number, toScore : number) => {
+            scoreText.setText(`Score: ${toScore}`);
+        });
+
+        const highScoreText = this.scene.add.text(0, 0, `High Score: ${scoreCounter.loadHighScore()}`, { fontFamily: 'bold Arial', fontSize: 140, color: '#ffffff' });
+        panel.add(highScoreText, "Center", 0, 100);
+
+        scoreCounter.on(ScoreCounter.HIGH_SCORE_CHANGE_EVENT, (highScore : number) => {
+            highScoreText.setText(`High Score: ${highScore}`);
+        });
+
+
+        // Set up the home button
+        const homeButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-red-square');
+        homeButton.setScale(0.8);
+        panel.add(homeButton, "BottomCenter", -350, -100);
+
+        const homeIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-home');
+        homeIcon.setScale(1.2);
+        homeButton.add(homeIcon, "Center");
+
+        homeButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.scene.time.delayedCall(700, () => this.scene.scene.start('MenuScene'));
+            this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
+        });
+        TweenUtilities.applyTintTweens(homeButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(homeButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, homeButton.scaleX, homeButton.scaleY, 1.1, 100);
+
+        // Set up the settings button
+        const restartButton = new UiImageButton(this.scene, 0, 0, 'icon-button-large-blue-square');
+        restartButton.setScale(0.8);
+        panel.add(restartButton, "BottomCenter", 350, -100); // Swapped position to BottomLeft
+
+        const restartIcon = this.scene.add.image(0, 0, 'icon-small-white-outline-return');
+        restartIcon.setScale(1.2);
+        restartButton.add(restartIcon, "Center");
+
+        restartButton.on(UiImageButton.BUTTON_UP_EVENT, () => {
+            this.scene.time.delayedCall(700, () => this.scene.scene.start('GameScene'));
+            this.blackSceneTransition.emit(BlackUiImage.BLACK_UI_IMAGE_DISABLE_EVENT);
+        });
+        TweenUtilities.applyTintTweens(restartButton, UiImageButton.BUTTON_DOWN_EVENT, [UiImageButton.BUTTON_UP_EVENT, UiImageButton.BUTTON_REST_EVENT], 0xffffff, 0xb8b8b8, 200);
+        TweenUtilities.applyScaleTweens(restartButton, UiImageButton.BUTTON_HOVER_EVENT, UiImageButton.BUTTON_REST_EVENT, restartButton.scaleX, restartButton.scaleY, 1.1, 100);
+
+        this.winUi.setVisible(false);
+    }
+
+
     private createOverlayUi() {
         let overlayUi = new UiContainer(this.scene, 0, 0);
         overlayUi.setSize(this.scene.scale.width, this.scene.scale.height);
@@ -162,8 +230,11 @@ class GameUi extends GameObjects.Graphics {
             counterText.setText(`${maxEnemies - enemies.length}/${maxEnemies}`);
         
             if (enemies.length === 0) {
-                this.showWinUi();
+                
             }
+            let scoreCounter = this.scene.data.get(ScoreCounter.SCORE_COUNTER_KEY) as ScoreCounter;
+            scoreCounter.saveHighScore();
+            this.showWinUi();
         });
 
         
@@ -215,7 +286,41 @@ class GameUi extends GameObjects.Graphics {
     }
 
     private showWinUi() {
-        //this.winUi.setVisible(true);
+        
+        let winnerImage = new UiImage(this.scene, 0, 0, 'winner-winner-chicken-dinner');
+        winnerImage.setScale(0);
+        winnerImage.setDepth(1000);
+        this.overlayUi.add(winnerImage, "Center");
+
+        this.blackBackground.emit(BlackUiImage.BLACK_UI_IMAGE_ENABLE_EVENT);
+    
+        this.scene.tweens.chain({
+            tweens: [
+                {
+                    targets: winnerImage,
+                    scale: {from : 0, to : 1.5}, // Target scale
+                    ease: Phaser.Math.Easing.Back.Out, // Easing function
+                    duration: 1000, // Duration of the tween in milliseconds
+                },
+                {
+                    delay: 1000,
+                    targets: winnerImage,
+                    scale: {from : 1.5, to : 0}, // Target scale
+                    alpha: {from : 1, to : 0}, // Target scale
+                    ease: Phaser.Math.Easing.Cubic.In, // Easing function
+                    duration: 500, // Duration of the tween in milliseconds
+                }
+            ],
+
+            
+            onComplete: () => {
+                // Once the tween is complete, make the winUi visible
+                this.winUi.setVisible(true);
+                winnerImage.destroy();
+            }
+        });
+
+
         this.playUi.setVisible(false);
     }
 

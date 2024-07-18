@@ -6,6 +6,7 @@ class ScoreCounter extends Phaser.Events.EventEmitter{
     
     public static readonly SCORE_CHANGE_EVENT = 'scoreChange';
     public static readonly SCORE_COUNTER_KEY = 'scoreCounter';
+    public static readonly HIGH_SCORE_CHANGE_EVENT = 'highScoreChange';
 
     constructor(){
         super();
@@ -38,17 +39,25 @@ class ScoreCounter extends Phaser.Events.EventEmitter{
         if (this.score > this.highScore) {
             this.highScore = this.score;
             LocalStorageManager.getInstance().setItem('highScore', this.highScore.toString());
+           
+            this.emit(ScoreCounter.HIGH_SCORE_CHANGE_EVENT, this.highScore);
         }  
     }
 
-    public loadHighScore() : void {
+    public loadHighScore() : number {
         const highScore = LocalStorageManager.getInstance().getItem('highScore');
         this.highScore = highScore ? parseInt(highScore) : 0;
+
+        this.emit(ScoreCounter.HIGH_SCORE_CHANGE_EVENT, this.highScore);
+
+        return this.highScore;
     }
 
     public resetHighScore() : void {
         this.highScore = 0;
         LocalStorageManager.getInstance().removeItem('highScore');
+
+        this.emit(ScoreCounter.HIGH_SCORE_CHANGE_EVENT, this.highScore);
     }
 
 

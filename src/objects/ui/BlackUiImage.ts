@@ -17,7 +17,7 @@ class BlackUiImage extends UiImage {
         this.setSize(scene.scale.width, scene.scale.height);
         this.setPosition(scene.scale.width / 2, scene.scale.height / 2);
         
-        this.setAlpha(0);
+        this.setAlpha(from);
 
         this.from = from;
         this.to = to;

@@ -64,6 +64,11 @@
       },
       {
         "type": "image",
+        "key": "winner-winner-chicken-dinner",
+        "url": "./assets/sprites/winner-winner-chicken-dinner.png"
+      },
+      {
+        "type": "image",
         "key": "tireTrack",
         "url": "./assets/sprites/tire-track.png"
       },

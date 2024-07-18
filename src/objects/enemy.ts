@@ -1,5 +1,6 @@
 import Bullet from './Bullet';
 import EnemyCounter from './counters/EnemyCounter';
+import ScoreCounter from './counters/ScoreCounter';
 import TireTrack from './TireTrack';
 
 
@@ -172,6 +173,10 @@ class Enemy extends Phaser.GameObjects.Image implements IPausable {
     }
 
     public updateHealth(): void {
+        
+        let scoreCounter = this.scene.data.get(ScoreCounter.SCORE_COUNTER_KEY) as ScoreCounter;
+        scoreCounter.addScore(10);
+        
         if (this.health > 0) {
             this.health -= 0.15;
             this.redrawLifebar();
@@ -183,6 +188,8 @@ class Enemy extends Phaser.GameObjects.Image implements IPausable {
             enemyCounter.destroyEnemy(this);
             
         }
+
+        
     }
 }
 
