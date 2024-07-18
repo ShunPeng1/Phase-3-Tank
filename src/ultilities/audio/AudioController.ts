@@ -9,6 +9,10 @@ class AudioController {
     private static musicConfig: Phaser.Types.Sound.SoundConfig;
     private static soundConfig: Phaser.Types.Sound.SoundConfig;
 
+    private listenerPosition: Phaser.Math.Vector2 = new Phaser.Math.Vector2(0, 0);
+    private listenerRange: number = 100; // Default range
+
+
     public static readonly AUDIO_CONTROLLER_KEY = 'audioController';
 
     constructor(scene: Scene) {
@@ -24,7 +28,7 @@ class AudioController {
         if (!AudioController.soundConfig) {
             AudioController.soundConfig = { volume: 1.0 };
         }
-        
+
         this.scene.events.on('shutdown', () => {
             const audioController = this.scene.data.get('audioController') as AudioController;
             audioController.stopAll();
@@ -43,6 +47,10 @@ class AudioController {
         }
     }
     
+    public setListenerAttributes(position: Phaser.Math.Vector2, range: number): void {
+        this.listenerPosition = position;
+        this.listenerRange = range;
+    }
     
     public adjustSoundVolume(volume: number): void {
         AudioController.soundConfig.volume = volume;
@@ -70,10 +78,19 @@ class AudioController {
         return AudioController.soundConfig.volume;
     }
     
-    public playSound(key: string): void {
+    public playSound(key: string, adjustVolumeForDistance: boolean = false, soundPosition: Phaser.Math.Vector2 = this.listenerPosition): void {
         // Use the sound configuration for playing specific sound effects
         const sound = this.scene.sound.add(key, AudioController.soundConfig);
+            
+        if (adjustVolumeForDistance && soundPosition) {
+            const distance = Phaser.Math.Distance.BetweenPoints(this.listenerPosition, soundPosition);
+            const volumeAdjustment = Math.max(0, 1 - (distance / this.listenerRange));
+            
+            sound.setVolume(volumeAdjustment);
+        }
+        
         sound.play();
+        
         // Add the sound to the sounds array
         this.sounds.push(sound);
         // Remove the sound from the array when it finishes playing
@@ -84,6 +101,7 @@ class AudioController {
             }
         });
     }
+
 
     public stopSound(key: string): void {
         // Find the sound by key

@@ -1,3 +1,4 @@
+import AudioController from '../ultilities/audio/AudioController';
 import Bullet from './Bullet';
 import TireTrack from './TireTrack';
 
@@ -32,12 +33,18 @@ class Player extends Phaser.GameObjects.Image implements IPausable{
     // Pause related variables
     private isPaused: boolean = false;
 
+    // Audio
+    private listeningRange: number = 1200;
+    private audioController: AudioController;
+
     public getBullets(): Phaser.GameObjects.Group {
         return this.bullets;
     }
 
     constructor(aParams: IImageConstructor) {
         super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
+
+        this.audioController = this.scene.data.get(AudioController.AUDIO_CONTROLLER_KEY) as AudioController;
 
         this.initImage();
         this.scene.add.existing(this);
@@ -200,6 +207,9 @@ class Player extends Phaser.GameObjects.Image implements IPausable{
         // Tank Container update
         this.tankContainer.setPosition(this.x, this.y);
         this.tankContainer.setRotation(this.rotation);
+
+        // Sound Listener Position
+        this.audioController.setListenerAttributes(new Phaser.Math.Vector2(this.x, this.y), this.listeningRange);
     }
 
     private handleBarrelRotation = (pointer: Phaser.Input.Pointer) => {
