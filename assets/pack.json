@@ -49,6 +49,11 @@
       },
       {
         "type": "image",
+        "key": "skull",
+        "url": "./assets/sprites/skull.png"
+      },
+      {
+        "type": "image",
         "key": "tireTrack",
         "url": "./assets/sprites/tire-track.png"
       },

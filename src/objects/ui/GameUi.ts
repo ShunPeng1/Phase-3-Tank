@@ -13,6 +13,8 @@ class GameUi extends GameObjects.Graphics {
     
     private playUi : UiContainer;
     private pauseUi : UiContainer;
+    
+    private overlayUi : UiContainer;
     //private settingUi : UiContainer;
     //private loseUi : UiContainer;
     //private winUi : UiContainer;
@@ -30,18 +32,23 @@ class GameUi extends GameObjects.Graphics {
         this.createPlayUi();
        
         this.createPauseUi();
+        this.createOverlayUi();
 
+        this.createBlackImages(scene);        
+
+        this.initializeSceneLoad();
+    }
+
+
+    private createBlackImages(scene: Phaser.Scene) {
         this.blackBackground = new BlackUiImage(scene, 0, 0.4, 200);
         this.blackBackground.setDepth(999);
 
         this.blackSceneTransition = new BlackUiImage(scene, 1, 0, 700);
         this.blackSceneTransition.setDepth(2000);
 
-        this.pauseController = new PauseController(scene, []);        
-
-        this.initializeSceneLoad();
+        this.pauseController = new PauseController(scene, []);
     }
-
 
     private createPlayUi(){
         this.playUi = new UiContainer(this.scene, 0, 0);
@@ -128,6 +135,27 @@ class GameUi extends GameObjects.Graphics {
         let soundBarUi = new MusicBarUi(this.scene, 0, 0, 'icon-large-audio-blank', 'icon-large-audio-off-blank', false);
         panel.add(soundBarUi, "BottomCenter", 0, -1000);
 
+
+
+    }
+
+    private createOverlayUi() {
+        let overlayUi = new UiContainer(this.scene, 0, 0);
+        overlayUi.setSize(this.scene.scale.width, this.scene.scale.height);
+        overlayUi.setPosition(this.scene.scale.width/2, this.scene.scale.height/2);
+        overlayUi.setDepth(1100);
+        this.overlayUi = overlayUi;
+        
+
+        const skullIcon = new UiImage(this.scene, 0, 0, 'skull');
+        skullIcon.setScale(0.25);
+        overlayUi.add(skullIcon, "TopCenter", -50, 80);
+
+        const counterText = this.scene.add.text(0, 0, '0/6', { fontFamily: 'bold Arial', fontSize: 60, color: '#ffffff' });
+        overlayUi.add(counterText, "TopCenter", 50, -40);
+
+
+        
 
 
     }
