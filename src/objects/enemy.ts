@@ -1,4 +1,5 @@
 import Bullet from './Bullet';
+import EnemyCounter from './counters/EnemyCounter';
 import TireTrack from './TireTrack';
 
 
@@ -177,6 +178,10 @@ class Enemy extends Phaser.GameObjects.Image implements IPausable {
         } else {
             this.health = 0;
             this.active = false;
+
+            let enemyCounter = this.scene.data.get(EnemyCounter.ENEMY_COUNTER_KEY) as EnemyCounter;
+            enemyCounter.destroyEnemy(this);
+            
         }
     }
 }

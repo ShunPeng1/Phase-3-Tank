@@ -8,6 +8,8 @@ import BlackUiImage from "./BlackUiImage";
 import UiImageSlider from "../../ultilities/ui/UiImageSlider";
 import MusicBarUi from "./MusicSliderUi";
 import CursorChanger from "../CursorChanger";
+import EnemyCounter from "../counters/EnemyCounter";
+import Enemy from "../Enemy";
 
 class GameUi extends GameObjects.Graphics {
     private pauseController : PauseController;
@@ -152,9 +154,17 @@ class GameUi extends GameObjects.Graphics {
         skullIcon.setScale(0.25);
         overlayUi.add(skullIcon, "TopCenter", -50, 80);
 
-        const counterText = this.scene.add.text(0, 0, '0/6', { fontFamily: 'bold Arial', fontSize: 60, color: '#ffffff' });
+        const counterText = this.scene.add.text(0, 0, '0/7', { fontFamily: 'bold Arial', fontSize: 60, color: '#ffffff' });
         overlayUi.add(counterText, "TopCenter", 50, -40);
 
+        const enemyCounter = this.scene.data.get(EnemyCounter.ENEMY_COUNTER_KEY) as EnemyCounter;
+        enemyCounter.on(EnemyCounter.ENEMY_DESTROYED_EVENT, (enemies : Enemy[], maxEnemies : number) => {
+            counterText.setText(`${maxEnemies - enemies.length}/${maxEnemies}`);
+        
+            if (enemies.length === 0) {
+                this.showWinUi();
+            }
+        });
 
         
 

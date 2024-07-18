@@ -5,6 +5,8 @@ import Obstacle from "../objects/obstacles/Obstacle";
 import Bullet from "../objects/Bullet";
 import GameUi from "../objects/ui/GameUi";
 import AudioController from "../ultilities/audio/AudioController";
+import ScoreCounter from "../objects/counters/ScoreCounter";
+import EnemyCounter from "../objects/counters/EnemyCounter";
 
 
 
@@ -29,6 +31,13 @@ class GameScene extends Phaser.Scene {
 
     create(): void {
         let audioController = new AudioController(this);
+        let scoreCounter = new ScoreCounter();
+        let enemyCounter = new EnemyCounter([]);
+
+        this.data.set(AudioController.AUDIO_CONTROLLER_KEY, audioController);
+        this.data.set(ScoreCounter.SCORE_COUNTER_KEY, scoreCounter);
+        this.data.set(EnemyCounter.ENEMY_COUNTER_KEY, enemyCounter);
+
 
         // create tilemap from tiled JSON
         this.map = this.make.tilemap({ key: 'levelMap' });
@@ -71,7 +80,8 @@ class GameScene extends Phaser.Scene {
         
         this.enemies.getChildren().forEach((enemyGameObject: Phaser.GameObjects.GameObject) => {
             let enemy = enemyGameObject as Enemy;
-            
+            enemyCounter.addEnemy(enemy);
+
             this.physics.add.overlap(
                 this.player.getBullets(),
                 enemyGameObject,
