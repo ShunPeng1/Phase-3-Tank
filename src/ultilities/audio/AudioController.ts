@@ -84,7 +84,7 @@ class AudioController {
             
         if (adjustVolumeForDistance && soundPosition) {
             const distance = Phaser.Math.Distance.BetweenPoints(this.listenerPosition, soundPosition);
-            const volumeAdjustment = Math.max(0, 1 - (distance / this.listenerRange));
+            const volumeAdjustment = Math.max(0, 1 - (distance / this.listenerRange)) * (AudioController.soundConfig?.volume || 0);
             
             sound.setVolume(volumeAdjustment);
         }
