@@ -38,6 +38,8 @@ class GameScene extends Phaser.Scene {
         this.data.set(ScoreCounter.SCORE_COUNTER_KEY, scoreCounter);
         this.data.set(EnemyCounter.ENEMY_COUNTER_KEY, enemyCounter);
 
+        // Camera
+        this.cameras.main.setBackgroundColor('#80be1f');
 
         // create tilemap from tiled JSON
         this.map = this.make.tilemap({ key: 'levelMap' });
